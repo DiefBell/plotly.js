@@ -17,3 +17,6 @@ tags
 !.github/
 !.gitignore
 !.npmignore
+
+CLAUDE.md
+.claude

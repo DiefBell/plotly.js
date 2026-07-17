@@ -24,7 +24,7 @@ function _supply(layoutIn, layoutOut, fullData, coerce, traceType) {
 }
 
 function supplyLayoutDefaults(layoutIn, layoutOut, fullData) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(layoutIn, layoutOut, layoutAttributes, attr, dflt);
     }
     _supply(layoutIn, layoutOut, fullData, coerce, 'box');

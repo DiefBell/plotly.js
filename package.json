@@ -89,6 +89,16 @@
       "import": "./dist/npm/esm/traces/icicle.js",
       "require": "./dist/npm/cjs/traces/icicle/index.js"
     },
+    "./traces/box": {
+      "types": "./dist/npm/types/traces/box/index.d.ts",
+      "import": "./dist/npm/esm/traces/box.js",
+      "require": "./dist/npm/cjs/traces/box/index.js"
+    },
+    "./traces/violin": {
+      "types": "./dist/npm/types/traces/violin/index.d.ts",
+      "import": "./dist/npm/esm/traces/violin.js",
+      "require": "./dist/npm/cjs/traces/violin/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

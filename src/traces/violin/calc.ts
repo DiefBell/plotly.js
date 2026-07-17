@@ -157,7 +157,7 @@ function calcSpan(trace, cdi, valAxis, bandwidth) {
     }
 
     // to reuse the equal-range-item block
-    var dummyAx = {
+    var dummyAx: any = {
         type: 'linear',
         range: spanOut
     };

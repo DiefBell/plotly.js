@@ -38,7 +38,9 @@
         "src/traces/pie/**/*.ts",
         "src/traces/sunburst/**/*.ts",
         "src/traces/treemap/**/*.ts",
-        "src/traces/icicle/**/*.ts"
+        "src/traces/icicle/**/*.ts",
+        "src/traces/box/**/*.ts",
+        "src/traces/violin/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

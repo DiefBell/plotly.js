@@ -8,6 +8,11 @@ var axisHoverFormat = require('../../plots/cartesian/axis_format_attributes').ax
 const { hovertemplateAttrs, templatefallbackAttrs } = require('../../plots/template_attributes');
 var extendFlat = require('../../lib/extend').extendFlat;
 
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/calendars/index.js, which no longer carries a
+// `box` entry in its schema.traces
+var calendarAttrs = require('../../components/calendars').xyAttrs;
+
 var scatterMarkerAttrs = scatterAttrs.marker;
 var scatterMarkerLineAttrs = scatterMarkerAttrs.line;
 
@@ -419,5 +424,8 @@ module.exports = {
         editType: 'style',
         description: 'Do the hover effects highlight individual boxes or sample points or both?'
     },
-    zorder: scatterAttrs.zorder
+    zorder: scatterAttrs.zorder,
+
+    xcalendar: calendarAttrs.xcalendar,
+    ycalendar: calendarAttrs.ycalendar
 };

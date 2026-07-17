@@ -9,7 +9,7 @@ var autoType = require('../../plots/cartesian/axis_autotype');
 var attributes = require('./attributes');
 
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
@@ -31,7 +31,7 @@ function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
     coerce('line.width');
     coerce('fillcolor', Color.addOpacity(traceOut.line.color, 0.5));
 
-    var boxmeanDflt = false;
+    var boxmeanDflt: any = false;
     if (hasPreCompStats) {
         var mean = coerce('mean');
         var sd = coerce('sd');

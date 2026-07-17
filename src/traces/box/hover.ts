@@ -227,7 +227,7 @@ function hoverOnPoints(pointData, xval, yval) {
     var distfn = Fx.quadrature(dx, dy);
 
     // show one point per trace
-    var ijClosest = false;
+    var ijClosest: any = false;
     var di, pt;
 
     for(var i = 0; i < cd.length; i++) {

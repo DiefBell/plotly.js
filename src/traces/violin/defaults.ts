@@ -7,10 +7,10 @@ var boxDefaults = require('../box/defaults');
 var attributes = require('./attributes');
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
-    function coerce2(attr, dflt) {
+    function coerce2(attr, dflt?) {
         return Lib.coerce2(traceIn, traceOut, attributes, attr, dflt);
     }
 

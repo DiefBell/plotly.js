@@ -121,7 +121,15 @@ async function buildEsm() {
         'traces/streamtube': path.join(constants.pathToSrc, 'traces/streamtube/index.ts'),
         'traces/cone': path.join(constants.pathToSrc, 'traces/cone/index.ts'),
         'traces/isosurface': path.join(constants.pathToSrc, 'traces/isosurface/index.ts'),
-        'traces/volume': path.join(constants.pathToSrc, 'traces/volume/index.ts')
+        'traces/volume': path.join(constants.pathToSrc, 'traces/volume/index.ts'),
+        'traces/scattergeo': path.join(constants.pathToSrc, 'traces/scattergeo/index.ts'),
+        'traces/choropleth': path.join(constants.pathToSrc, 'traces/choropleth/index.ts'),
+        'traces/scattermapbox': path.join(constants.pathToSrc, 'traces/scattermapbox/index.ts'),
+        'traces/scattermap': path.join(constants.pathToSrc, 'traces/scattermap/index.ts'),
+        'traces/choroplethmapbox': path.join(constants.pathToSrc, 'traces/choroplethmapbox/index.ts'),
+        'traces/choroplethmap': path.join(constants.pathToSrc, 'traces/choroplethmap/index.ts'),
+        'traces/densitymapbox': path.join(constants.pathToSrc, 'traces/densitymapbox/index.ts'),
+        'traces/densitymap': path.join(constants.pathToSrc, 'traces/densitymap/index.ts')
     };
 
     await build({

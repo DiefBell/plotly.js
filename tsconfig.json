@@ -49,7 +49,15 @@
         "src/traces/streamtube/**/*.ts",
         "src/traces/cone/**/*.ts",
         "src/traces/isosurface/**/*.ts",
-        "src/traces/volume/**/*.ts"
+        "src/traces/volume/**/*.ts",
+        "src/traces/scattergeo/**/*.ts",
+        "src/traces/choropleth/**/*.ts",
+        "src/traces/scattermapbox/**/*.ts",
+        "src/traces/scattermap/**/*.ts",
+        "src/traces/choroplethmapbox/**/*.ts",
+        "src/traces/choroplethmap/**/*.ts",
+        "src/traces/densitymapbox/**/*.ts",
+        "src/traces/densitymap/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

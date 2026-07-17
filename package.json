@@ -144,6 +144,46 @@
       "import": "./dist/npm/esm/traces/volume.js",
       "require": "./dist/npm/cjs/traces/volume/index.js"
     },
+    "./traces/scattergeo": {
+      "types": "./dist/npm/types/traces/scattergeo/index.d.ts",
+      "import": "./dist/npm/esm/traces/scattergeo.js",
+      "require": "./dist/npm/cjs/traces/scattergeo/index.js"
+    },
+    "./traces/choropleth": {
+      "types": "./dist/npm/types/traces/choropleth/index.d.ts",
+      "import": "./dist/npm/esm/traces/choropleth.js",
+      "require": "./dist/npm/cjs/traces/choropleth/index.js"
+    },
+    "./traces/scattermapbox": {
+      "types": "./dist/npm/types/traces/scattermapbox/index.d.ts",
+      "import": "./dist/npm/esm/traces/scattermapbox.js",
+      "require": "./dist/npm/cjs/traces/scattermapbox/index.js"
+    },
+    "./traces/scattermap": {
+      "types": "./dist/npm/types/traces/scattermap/index.d.ts",
+      "import": "./dist/npm/esm/traces/scattermap.js",
+      "require": "./dist/npm/cjs/traces/scattermap/index.js"
+    },
+    "./traces/choroplethmapbox": {
+      "types": "./dist/npm/types/traces/choroplethmapbox/index.d.ts",
+      "import": "./dist/npm/esm/traces/choroplethmapbox.js",
+      "require": "./dist/npm/cjs/traces/choroplethmapbox/index.js"
+    },
+    "./traces/choroplethmap": {
+      "types": "./dist/npm/types/traces/choroplethmap/index.d.ts",
+      "import": "./dist/npm/esm/traces/choroplethmap.js",
+      "require": "./dist/npm/cjs/traces/choroplethmap/index.js"
+    },
+    "./traces/densitymapbox": {
+      "types": "./dist/npm/types/traces/densitymapbox/index.d.ts",
+      "import": "./dist/npm/esm/traces/densitymapbox.js",
+      "require": "./dist/npm/cjs/traces/densitymapbox/index.js"
+    },
+    "./traces/densitymap": {
+      "types": "./dist/npm/types/traces/densitymap/index.d.ts",
+      "import": "./dist/npm/esm/traces/densitymap.js",
+      "require": "./dist/npm/cjs/traces/densitymap/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

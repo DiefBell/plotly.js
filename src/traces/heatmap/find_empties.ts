@@ -11,7 +11,7 @@ var maxRowLength = require('../../lib').maxRowLength;
  */
 module.exports = function findEmpties(z) {
     var empties = [];
-    var neighborHash = {};
+    var neighborHash: any = {};
     var noNeighborList = [];
     var nextRow = z[0];
     var row = [];
@@ -23,7 +23,7 @@ module.exports = function findEmpties(z) {
     var thisPt;
     var p;
     var neighborCount;
-    var newNeighborHash;
+    var newNeighborHash: any;
     var foundNewNeighbors;
 
     for(i = 0; i < z.length; i++) {
@@ -48,7 +48,7 @@ module.exports = function findEmpties(z) {
                     // if all neighbors that could exist do, we don't
                     // need this for finding farther neighbors
                     if(neighborCount < 4) {
-                        neighborHash[[i, j]] = [i, j, neighborCount];
+                        neighborHash[[i, j] as any] = [i, j, neighborCount];
                     }
 
                     empties.push([i, j, neighborCount]);
@@ -67,10 +67,10 @@ module.exports = function findEmpties(z) {
             i = thisPt[0];
             j = thisPt[1];
 
-            neighborCount = ((neighborHash[[i - 1, j]] || blank)[2] +
-                (neighborHash[[i + 1, j]] || blank)[2] +
-                (neighborHash[[i, j - 1]] || blank)[2] +
-                (neighborHash[[i, j + 1]] || blank)[2]) / 20;
+            neighborCount = ((neighborHash[[i - 1, j] as any] || blank)[2] +
+                (neighborHash[[i + 1, j] as any] || blank)[2] +
+                (neighborHash[[i, j - 1] as any] || blank)[2] +
+                (neighborHash[[i, j + 1] as any] || blank)[2]) / 20;
 
             if(neighborCount) {
                 newNeighborHash[thisPt] = [i, j, neighborCount];

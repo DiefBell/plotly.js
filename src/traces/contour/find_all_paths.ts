@@ -3,7 +3,7 @@
 var Lib = require('../../lib');
 var constants = require('./constants');
 
-module.exports = function findAllPaths(pathinfo, xtol, ytol) {
+module.exports = function findAllPaths(pathinfo, xtol?, ytol?) {
     var cnt,
         startLoc,
         i,

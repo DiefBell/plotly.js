@@ -60,7 +60,9 @@
         "src/traces/densitymap/**/*.ts",
         "src/traces/carpet/**/*.ts",
         "src/traces/scattercarpet/**/*.ts",
-        "src/traces/contourcarpet/**/*.ts"
+        "src/traces/contourcarpet/**/*.ts",
+        "src/traces/heatmap/**/*.ts",
+        "src/traces/contour/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

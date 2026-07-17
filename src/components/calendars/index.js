@@ -198,9 +198,6 @@ module.exports = {
         // still get theirs injected by the registry until they too convert
         // to static composition.
         traces: {
-            heatmap: xyAttrs,
-            contour: xyAttrs,
-            mesh3d: xyzAttrs,
             scattergl: xyAttrs
         }
     },

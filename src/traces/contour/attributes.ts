@@ -15,8 +15,9 @@ var COMPARISON_OPS2 = filterOps.COMPARISON_OPS2;
 var INTERVAL_OPS = filterOps.INTERVAL_OPS;
 
 var scatterLineAttrs = scatterAttrs.line;
+var calendarAttrs = require('../../components/calendars').xyAttrs;
 
-module.exports = extendFlat(
+var attrs = (module.exports = extendFlat(
     {
         z: heatmapAttrs.z,
         x: heatmapAttrs.x,
@@ -264,4 +265,7 @@ module.exports = extendFlat(
         autoColorDflt: false,
         editTypeOverride: 'calc'
     })
-);
+));
+
+attrs.xcalendar = calendarAttrs.xcalendar;
+attrs.ycalendar = calendarAttrs.ycalendar;

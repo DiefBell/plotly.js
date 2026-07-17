@@ -80,7 +80,7 @@ module.exports = function setContours(trace, vals) {
  * returns: an axis object
  */
 function autoContours(start, end, ncontours) {
-    var dummyAx = {
+    var dummyAx: any = {
         type: 'linear',
         range: [start, end]
     };

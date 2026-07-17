@@ -12,7 +12,7 @@ var isArrayOrTypedArray = require('../../lib').isArrayOrTypedArray;
 var CONSTRAINT_REDUCTION = filterOps.CONSTRAINT_REDUCTION;
 var COMPARISON_OPS2 = filterOps.COMPARISON_OPS2;
 
-module.exports = function handleConstraintDefaults(traceIn, traceOut, coerce, layout, defaultColor, opts) {
+module.exports = function handleConstraintDefaults(traceIn, traceOut, coerce, layout, defaultColor, opts?) {
     var contours = traceOut.contours;
     var showLines, lineColor, fillColor;
 

@@ -5,7 +5,7 @@ var d3 = require('@plotly/d3');
 var Colorscale = require('../../components/colorscale');
 var endPlus = require('./end_plus');
 
-module.exports = function makeColorMap(trace) {
+module.exports = function makeColorMap(trace, opts?) {
     var contours = trace.contours;
     var start = contours.start;
     var end = endPlus(contours);

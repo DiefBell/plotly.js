@@ -53,7 +53,7 @@ module.exports = function interp2d(z, emptyPoints) {
     return z;
 };
 
-function iterateInterp2d(z, emptyPoints, overshoot) {
+function iterateInterp2d(z, emptyPoints, overshoot?) {
     var maxFractionalChange = 0;
     var thisPt;
     var i;

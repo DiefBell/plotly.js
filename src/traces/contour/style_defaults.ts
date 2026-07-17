@@ -4,7 +4,7 @@ var colorscaleDefaults = require('../../components/colorscale/defaults');
 var handleLabelDefaults = require('./label_defaults');
 
 
-module.exports = function handleStyleDefaults(traceIn, traceOut, coerce, layout, opts) {
+module.exports = function handleStyleDefaults(traceIn, traceOut, coerce, layout, opts?) {
     var coloring = coerce('contours.coloring');
 
     var showLines;

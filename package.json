@@ -199,6 +199,16 @@
       "import": "./dist/npm/esm/traces/contourcarpet.js",
       "require": "./dist/npm/cjs/traces/contourcarpet/index.js"
     },
+    "./traces/heatmap": {
+      "types": "./dist/npm/types/traces/heatmap/index.d.ts",
+      "import": "./dist/npm/esm/traces/heatmap.js",
+      "require": "./dist/npm/cjs/traces/heatmap/index.js"
+    },
+    "./traces/contour": {
+      "types": "./dist/npm/types/traces/contour/index.d.ts",
+      "import": "./dist/npm/esm/traces/contour.js",
+      "require": "./dist/npm/cjs/traces/contour/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

@@ -252,7 +252,7 @@ function makeLinesAndLabels(plotgroup, pathinfo, gd, cd0, contours) {
 
         // visible bounds of the contour trace (and the midpoints, to
         // help with cost calculations)
-        var bounds = {};
+        var bounds: any = {};
 
         if(xRng[0] < xRng[1]) {
             bounds.left = x0;
@@ -386,7 +386,7 @@ exports.labelFormatter = function(gd, cd0) {
     var trace = cd0.trace;
     var contours = trace.contours;
 
-    var formatAxis = {
+    var formatAxis: any = {
         type: 'linear',
         _id: 'ycontour',
         showexponent: 'all',
@@ -627,7 +627,7 @@ function clipGaps(plotGroup, plotinfo, gd, cd0, perimeter) {
     clipPath.exit().remove();
 
     if(trace.connectgaps === false) {
-        var clipPathInfo = {
+        var clipPathInfo: any = {
             // fraction of the way from missing to present point
             // to draw the boundary.
             // if you make this 1 (or 1-epsilon) then a point in

@@ -16,7 +16,7 @@ module.exports = function clean2dArray(zOld, trace, xa, ya) {
         rowlen = 0;
         for(i = 0; i < zOld.length; i++) rowlen = Math.max(rowlen, zOld[i].length);
         if(rowlen === 0) return false;
-        getCollen = function(zOld) { return zOld.length; };
+        getCollen = function(zOld, i?) { return zOld.length; };
         old2new = function(zOld, i, j) { return (zOld[j] || [])[i]; };
     } else {
         rowlen = zOld.length;

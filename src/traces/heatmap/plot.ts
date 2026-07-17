@@ -190,7 +190,7 @@ module.exports = function (gd, plotinfo, cdheatmaps, heatmapLayer) {
         // cruise through z-matrix row-by-row
         // build a brick at each z-matrix value
         var yi = ypx(0);
-        var yb = [yi, yi];
+        var yb: any = [yi, yi];
         var xbi = xrev ? 0 : 1;
         var ybi = yrev ? 0 : 1;
         // for collecting an average luminosity of the heatmap
@@ -201,7 +201,7 @@ module.exports = function (gd, plotinfo, cdheatmaps, heatmapLayer) {
 
         var xb, xi, v, row, c;
 
-        function setColor(v, pixsize) {
+        function setColor(v, pixsize?) {
             if (v !== undefined) {
                 var c = sclFunc(v);
                 c[0] = Math.round(c[0]);
@@ -425,7 +425,7 @@ module.exports = function (gd, plotinfo, cdheatmaps, heatmapLayer) {
                     var _x = Math.round(xa.c2p(xVal));
                     if (0 > _x || _x > xa._length) continue;
 
-                    var obj = formatLabels(
+                    var obj: any = formatLabels(
                         {
                             x: xVal,
                             y: yVal

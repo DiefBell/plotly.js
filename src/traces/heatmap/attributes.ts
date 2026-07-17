@@ -7,8 +7,9 @@ const { axisHoverFormat } = require('../../plots/cartesian/axis_format_attribute
 const fontAttrs = require('../../plots/font_attributes');
 const { hovertemplateAttrs, templatefallbackAttrs, texttemplateAttrs } = require('../../plots/template_attributes');
 const scatterAttrs = require('../scatter/attributes');
+const calendarAttrs = require('../../components/calendars').xyAttrs;
 
-module.exports = extendFlat(
+var attrs = (module.exports = extendFlat(
     {
         z: {
             valType: 'data_array',
@@ -130,4 +131,7 @@ module.exports = extendFlat(
         zorder: scatterAttrs.zorder
     },
     colorScaleAttrs('', { cLetter: 'z', autoColorDflt: false })
-);
+));
+
+attrs.xcalendar = calendarAttrs.xcalendar;
+attrs.ycalendar = calendarAttrs.ycalendar;

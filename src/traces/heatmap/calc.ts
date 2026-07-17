@@ -126,7 +126,7 @@ module.exports = function calc(gd, trace) {
     trace._extremes[xa._id] = Axes.findExtremes(xa, xArray);
     trace._extremes[ya._id] = Axes.findExtremes(ya, yArray);
 
-    var cd0 = {
+    var cd0: any = {
         x: xArray,
         y: yArray,
         z: z,

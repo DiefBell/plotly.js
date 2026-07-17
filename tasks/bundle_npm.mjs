@@ -106,7 +106,11 @@ async function buildEsm() {
         'traces/barpolar': path.join(constants.pathToSrc, 'traces/barpolar/index.ts'),
         'traces/waterfall': path.join(constants.pathToSrc, 'traces/waterfall/index.ts'),
         'traces/funnel': path.join(constants.pathToSrc, 'traces/funnel/index.ts'),
-        'traces/funnelarea': path.join(constants.pathToSrc, 'traces/funnelarea/index.ts')
+        'traces/funnelarea': path.join(constants.pathToSrc, 'traces/funnelarea/index.ts'),
+        'traces/pie': path.join(constants.pathToSrc, 'traces/pie/index.ts'),
+        'traces/sunburst': path.join(constants.pathToSrc, 'traces/sunburst/index.ts'),
+        'traces/treemap': path.join(constants.pathToSrc, 'traces/treemap/index.ts'),
+        'traces/icicle': path.join(constants.pathToSrc, 'traces/icicle/index.ts')
     };
 
     await build({

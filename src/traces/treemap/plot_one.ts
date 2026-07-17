@@ -154,8 +154,8 @@ module.exports = function plotOne(gd, cd, element, transitionOpts, drawDescendan
 
         var halfH = barH / 2;
 
-        var pL = {};
-        var pR = {};
+        var pL: any = {};
+        var pR: any = {};
 
         pL.x = _x0;
         pR.x = _x1;

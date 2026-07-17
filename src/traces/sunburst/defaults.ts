@@ -11,7 +11,7 @@ var hasColorscale = Colorscale.hasColorscale;
 var colorscaleDefaults = Colorscale.handleDefaults;
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

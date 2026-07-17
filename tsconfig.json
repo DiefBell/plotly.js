@@ -34,7 +34,11 @@
         "src/traces/barpolar/**/*.ts",
         "src/traces/waterfall/**/*.ts",
         "src/traces/funnel/**/*.ts",
-        "src/traces/funnelarea/**/*.ts"
+        "src/traces/funnelarea/**/*.ts",
+        "src/traces/pie/**/*.ts",
+        "src/traces/sunburst/**/*.ts",
+        "src/traces/treemap/**/*.ts",
+        "src/traces/icicle/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

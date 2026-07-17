@@ -500,7 +500,7 @@ function plotOne(gd, cd, element, transitionOpts) {
     function interpX0X1FromParent(pt) {
         var parent = pt.parent;
         var parentPrev = prevLookup[helpers.getPtId(parent)];
-        var out = {};
+        var out: any = {};
 
         if (parentPrev) {
             // if parent is visible
@@ -603,7 +603,7 @@ exports.formatSliceLabel = function (pt, entry, trace, cd, fullLayout) {
 
     var txt = Lib.castOption(trace, cdi.i, 'texttemplate');
     if (!txt) return '';
-    var obj = {};
+    var obj: any = {};
     if (cdi.label) obj.label = cdi.label;
     if (cdi.hasOwnProperty('v')) {
         obj.value = cdi.v;
@@ -641,7 +641,7 @@ exports.formatSliceLabel = function (pt, entry, trace, cd, fullLayout) {
     });
 };
 
-function getInscribedRadiusFraction(pt) {
+function getInscribedRadiusFraction(pt, trace?) {
     if (pt.rpx0 === 0 && Lib.isFullCircle([pt.x0, pt.x1])) {
         // special case of 100% with no hole
         return 1;

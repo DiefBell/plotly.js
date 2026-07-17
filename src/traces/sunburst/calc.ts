@@ -70,7 +70,7 @@ exports.calc = function(gd, trace) {
             var id = getId(i);
             var pid = isValidKey(parents[i]) ? String(parents[i]) : '';
 
-            var cdi = {
+            var cdi: any = {
                 i: i,
                 id: id,
                 pid: pid,

@@ -69,6 +69,26 @@
       "import": "./dist/npm/esm/traces/funnelarea.js",
       "require": "./dist/npm/cjs/traces/funnelarea/index.js"
     },
+    "./traces/pie": {
+      "types": "./dist/npm/types/traces/pie/index.d.ts",
+      "import": "./dist/npm/esm/traces/pie.js",
+      "require": "./dist/npm/cjs/traces/pie/index.js"
+    },
+    "./traces/sunburst": {
+      "types": "./dist/npm/types/traces/sunburst/index.d.ts",
+      "import": "./dist/npm/esm/traces/sunburst.js",
+      "require": "./dist/npm/cjs/traces/sunburst/index.js"
+    },
+    "./traces/treemap": {
+      "types": "./dist/npm/types/traces/treemap/index.d.ts",
+      "import": "./dist/npm/esm/traces/treemap.js",
+      "require": "./dist/npm/cjs/traces/treemap/index.js"
+    },
+    "./traces/icicle": {
+      "types": "./dist/npm/types/traces/icicle/index.d.ts",
+      "import": "./dist/npm/esm/traces/icicle.js",
+      "require": "./dist/npm/cjs/traces/icicle/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

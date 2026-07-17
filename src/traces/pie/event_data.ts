@@ -6,7 +6,7 @@ var appendArrayMultiPointValues = require('../../components/fx/helpers').appendA
 // but it has a different API and goes through a totally different pathway.
 // So to ensure it doesn't get misused, it's not attached to the Pie module.
 module.exports = function eventData(pt, trace) {
-    var out = {
+    var out: any = {
         curveNumber: trace.index,
         pointNumbers: pt.pts,
         data: trace._input,

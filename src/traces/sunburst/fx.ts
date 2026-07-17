@@ -66,7 +66,7 @@ module.exports = function attachFxHandlers(sliceTop, entry, gd, cd, opts) {
                 hoverCenterY = pt._hoverY;
             }
 
-            var hoverPt = {};
+            var hoverPt: any = {};
             var parts = [];
             var thisText = [];
             var hasFlag = function(flag) { return parts.indexOf(flag) !== -1; };
@@ -129,7 +129,7 @@ module.exports = function attachFxHandlers(sliceTop, entry, gd, cd, opts) {
 
             eventData = [makeEventData(pt, traceNow, opts.eventDataKeys)];
 
-            var hoverItems = {
+            var hoverItems: any = {
                 trace: traceNow,
                 y: hoverCenterY,
                 _x0: pt._x0,
@@ -233,7 +233,7 @@ module.exports = function attachFxHandlers(sliceTop, entry, gd, cd, opts) {
             helpers.findEntryWithLevel(hierarchy, id);
         var nextLevel = helpers.getPtId(nextEntry);
 
-        var typeClickEvtData = {
+        var typeClickEvtData: any = {
             points: [makeEventData(pt, traceNow, opts.eventDataKeys)],
             event: d3.event
         };
@@ -295,7 +295,7 @@ module.exports = function attachFxHandlers(sliceTop, entry, gd, cd, opts) {
 function makeEventData(pt, trace, keys) {
     var cdi = pt.data.data;
 
-    var out = {
+    var out: any = {
         curveNumber: trace.index,
         pointNumber: cdi.i,
         data: trace._input,

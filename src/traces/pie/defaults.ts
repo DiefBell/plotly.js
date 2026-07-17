@@ -50,7 +50,7 @@ function handleMarkerDefaults(traceIn, traceOut, layout, coerce, isPie) {
 }
 
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

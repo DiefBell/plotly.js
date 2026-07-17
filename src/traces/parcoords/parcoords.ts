@@ -222,7 +222,7 @@ function viewModel(state, callbacks, model) {
     var unitPad = c.verticalPadding / height;
     var _unitToPaddedPx = unitToPaddedPx(height, c.verticalPadding);
 
-    var vm = {
+    var vm: any = {
         key: model.key,
         xScale: xScale,
         model: model,
@@ -358,8 +358,8 @@ function parcoordsInteractionState() {
     var linePickActive = true;
     var contextShown = false;
     return {
-        linePickActive: function(val) {return arguments.length ? linePickActive = !!val : linePickActive;},
-        contextShown: function(val) {return arguments.length ? contextShown = !!val : contextShown;}
+        linePickActive: function(val?) {return arguments.length ? linePickActive = !!val : linePickActive;},
+        contextShown: function(val?) {return arguments.length ? contextShown = !!val : contextShown;}
     };
 }
 

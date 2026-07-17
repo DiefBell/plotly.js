@@ -46,7 +46,7 @@ function hoverPoints(pointData, xval, yval, hovermode, opts) {
     return points;
 }
 
-function _hoverPoints(pointData, xval, yval, axisHoversubplots) {
+function _hoverPoints(pointData, xval, yval, axisHoversubplots?) {
     var cd = pointData.cd;
     var trace = cd[0].trace;
     var scene = pointData.scene;

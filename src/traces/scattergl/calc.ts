@@ -27,7 +27,7 @@ module.exports = function calc(gd, trace) {
     var len = trace._length;
     var hasTooManyPoints = len >= TOO_MANY_POINTS;
     var len2 = len * 2;
-    var stash = {};
+    var stash: any = {};
     var i;
 
     var origX = xa.makeCalcdata(trace, 'x');

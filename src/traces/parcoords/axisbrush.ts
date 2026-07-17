@@ -123,7 +123,7 @@ function styleHighlight(selection) {
     selection.attr('stroke-dasharray', setHighlight);
 }
 
-function renderHighlight(root, tweenCallback) {
+function renderHighlight(root, tweenCallback?) {
     var bar = d3.select(root).selectAll('.highlight, .highlight-shadow');
     var barToStyle = tweenCallback ? bar.transition().duration(c.bar.snapDuration).each('end', tweenCallback) : bar;
     styleHighlight(barToStyle);
@@ -133,7 +133,7 @@ function getInterval(d, y) {
     var b = d.brush;
     var active = b.filterSpecified;
     var closestInterval = NaN;
-    var out = {};
+    var out: any = {};
     var i;
 
     if(active) {

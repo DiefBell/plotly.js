@@ -529,7 +529,7 @@ function buildPointsArrayForPath(d) {
  * @param {PathViewModel} d
  */
 function buildConstraintsForPath(d) {
-    var constraints = {};
+    var constraints: any = {};
     var dimensions = d.parcatsViewModel.model.dimensions;
 
     // dimensions
@@ -706,7 +706,7 @@ function emitPointsEventCategoryHovermode(bandElement, eventName, event) {
         });
     });
 
-    var constraints = {};
+    var constraints: any = {};
     constraints[categoryModel.dimensionInd] = categoryModel.categoryValue;
     gd.emit(eventName, {
         points: points, event: event, constraints: constraints
@@ -733,7 +733,7 @@ function emitPointsEventColorHovermode(bandElement, eventName, event) {
         Array.prototype.push.apply(points, buildPointsArrayForPath(pathViewModel));
     });
 
-    var constraints = {};
+    var constraints: any = {};
     constraints[categoryModel.dimensionInd] = categoryModel.categoryValue;
     // color
     if(bandViewModel.rawColor !== undefined) {
@@ -1351,7 +1351,7 @@ function getTraceIndex(parcatsViewModel) {
  * @param {ParcatsViewModel} parcatsViewModel
  * @param {boolean} hasTransition Whether to update element with transition
  */
-function updateSvgPaths(parcatsViewModel, hasTransition) {
+function updateSvgPaths(parcatsViewModel, hasTransition?) {
     if(hasTransition === undefined) {
         hasTransition = false;
     }
@@ -1375,7 +1375,7 @@ function updateSvgPaths(parcatsViewModel, hasTransition) {
  * @param {ParcatsViewModel} parcatsViewModel
  * @param {boolean} hasTransition Whether to update element with transition
  */
-function updateSvgCategories(parcatsViewModel, hasTransition) {
+function updateSvgCategories(parcatsViewModel, hasTransition?) {
     if(hasTransition === undefined) {
         hasTransition = false;
     }

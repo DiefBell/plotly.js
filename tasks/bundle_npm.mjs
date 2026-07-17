@@ -141,7 +141,12 @@ async function buildEsm() {
         'traces/image': path.join(constants.pathToSrc, 'traces/image/index.ts'),
         'traces/indicator': path.join(constants.pathToSrc, 'traces/indicator/index.ts'),
         'traces/table': path.join(constants.pathToSrc, 'traces/table/index.ts'),
-        'traces/sankey': path.join(constants.pathToSrc, 'traces/sankey/index.ts')
+        'traces/sankey': path.join(constants.pathToSrc, 'traces/sankey/index.ts'),
+        'traces/parcoords': path.join(constants.pathToSrc, 'traces/parcoords/index.ts'),
+        'traces/scattergl': path.join(constants.pathToSrc, 'traces/scattergl/index.ts'),
+        'traces/parcats': path.join(constants.pathToSrc, 'traces/parcats/index.ts'),
+        'traces/splom': path.join(constants.pathToSrc, 'traces/splom/index.ts'),
+        'traces/scatterpolargl': path.join(constants.pathToSrc, 'traces/scatterpolargl/index.ts')
     };
 
     await build({

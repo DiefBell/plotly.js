@@ -115,7 +115,7 @@ function calcHover(pointData, x, y, trace) {
     var id = pointData.index;
 
     // the closest data point
-    var di = {
+    var di: any = {
         pointNumber: id,
         x: x[id],
         y: y[id]

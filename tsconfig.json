@@ -69,7 +69,12 @@
         "src/traces/image/**/*.ts",
         "src/traces/indicator/**/*.ts",
         "src/traces/table/**/*.ts",
-        "src/traces/sankey/**/*.ts"
+        "src/traces/sankey/**/*.ts",
+        "src/traces/parcoords/**/*.ts",
+        "src/traces/scattergl/**/*.ts",
+        "src/traces/parcats/**/*.ts",
+        "src/traces/splom/**/*.ts",
+        "src/traces/scatterpolargl/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

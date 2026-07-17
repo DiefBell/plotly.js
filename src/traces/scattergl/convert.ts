@@ -34,7 +34,7 @@ var appendArrayPointValue = require('../../components/fx/helpers').appendArrayPo
 function convertStyle(gd, trace) {
     var i;
 
-    var opts = {
+    var opts: any = {
         marker: undefined,
         markerSel: undefined,
         markerUnsel: undefined,
@@ -117,7 +117,7 @@ function convertTextStyle(gd, trace) {
     var tfw = textfontIn.weight;
     var tfy = textfontIn.style;
     var tfv = textfontIn.variant;
-    var optsOut = {};
+    var optsOut: any = {};
     var i;
     var plotGlPixelRatio = gd._context.plotGlPixelRatio;
 
@@ -215,7 +215,7 @@ function convertTextStyle(gd, trace) {
         // if any textfont param is array - make render a batch
         optsOut.font = new Array(count);
         for (i = 0; i < count; i++) {
-            var fonti = (optsOut.font[i] = {});
+            var fonti: any = (optsOut.font[i] = {});
 
             fonti.size =
                 (Lib.isTypedArray(tfs) ? tfs[i] : isArrayOrTypedArray(tfs) ? (isNumeric(tfs[i]) ? tfs[i] : 0) : tfs) *
@@ -252,7 +252,7 @@ function weightFallBack(w) {
 function convertMarkerStyle(gd, trace) {
     var count = trace._length;
     var optsIn = trace.marker;
-    var optsOut = {};
+    var optsOut: any = {};
     var i;
 
     var multiSymbol = isArrayOrTypedArray(optsIn.symbol);
@@ -403,7 +403,7 @@ function convertMarkerStyle(gd, trace) {
 
 function convertMarkerSelection(gd, trace, target) {
     var optsIn = trace.marker;
-    var optsOut = {};
+    var optsOut: any = {};
 
     if (!target) return optsOut;
 
@@ -419,7 +419,7 @@ function convertMarkerSelection(gd, trace, target) {
 }
 
 function convertTextSelection(gd, trace, target) {
-    var optsOut = {};
+    var optsOut: any = {};
 
     if (!target) return optsOut;
 
@@ -441,7 +441,7 @@ function convertTextSelection(gd, trace, target) {
 }
 
 function convertErrorBarStyle(trace, target, plotGlPixelRatio) {
-    var optsOut = {
+    var optsOut: any = {
         capSize: target.width * 2 * plotGlPixelRatio,
         lineWidth: target.thickness * plotGlPixelRatio,
         color: target.color
@@ -639,7 +639,7 @@ function convertErrorBarPositions(gd, trace, positions, x, y) {
     var xa = AxisIDs.getFromId(gd, trace.xaxis, 'x');
     var ya = AxisIDs.getFromId(gd, trace.yaxis, 'y');
     var count = positions.length / 2;
-    var out = {};
+    var out: any = {};
 
     function convertOneAxis(coords, ax) {
         var axLetter = ax._id.charAt(0);
@@ -692,7 +692,7 @@ function convertErrorBarPositions(gd, trace, positions, x, y) {
 
 function convertTextPosition(gd, trace, textOpts, markerOpts) {
     var count = trace._length;
-    var out = {};
+    var out: any = {};
     var i;
 
     // corresponds to textPointPosition from component.drawing

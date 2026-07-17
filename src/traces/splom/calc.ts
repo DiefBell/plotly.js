@@ -16,7 +16,7 @@ var TOO_MANY_POINTS = require('../scattergl/constants').TOO_MANY_POINTS;
 module.exports = function calc(gd, trace) {
     var dimensions = trace.dimensions;
     var commonLength = trace._length;
-    var opts = {};
+    var opts: any = {};
     // 'c' for calculated, 'l' for linear,
     // only differ here for log axes, pass ldata to createMatrix as 'data'
     var cdata = opts.cdata = [];

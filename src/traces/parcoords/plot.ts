@@ -24,7 +24,7 @@ function sorter(visibleIndices, orig) {
     };
 }
 
-var exports = module.exports = function plot(gd, cdModule) {
+var exports: any = module.exports = function plot(gd, cdModule) {
     var fullLayout = gd._fullLayout;
 
     var success = prepareRegl(gd, [], reglPrecompiled);

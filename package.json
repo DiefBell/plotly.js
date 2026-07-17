@@ -244,6 +244,31 @@
       "import": "./dist/npm/esm/traces/sankey.js",
       "require": "./dist/npm/cjs/traces/sankey/index.js"
     },
+    "./traces/parcoords": {
+      "types": "./dist/npm/types/traces/parcoords/index.d.ts",
+      "import": "./dist/npm/esm/traces/parcoords.js",
+      "require": "./dist/npm/cjs/traces/parcoords/index.js"
+    },
+    "./traces/scattergl": {
+      "types": "./dist/npm/types/traces/scattergl/index.d.ts",
+      "import": "./dist/npm/esm/traces/scattergl.js",
+      "require": "./dist/npm/cjs/traces/scattergl/index.js"
+    },
+    "./traces/parcats": {
+      "types": "./dist/npm/types/traces/parcats/index.d.ts",
+      "import": "./dist/npm/esm/traces/parcats.js",
+      "require": "./dist/npm/cjs/traces/parcats/index.js"
+    },
+    "./traces/splom": {
+      "types": "./dist/npm/types/traces/splom/index.d.ts",
+      "import": "./dist/npm/esm/traces/splom.js",
+      "require": "./dist/npm/cjs/traces/splom/index.js"
+    },
+    "./traces/scatterpolargl": {
+      "types": "./dist/npm/types/traces/scatterpolargl/index.d.ts",
+      "import": "./dist/npm/esm/traces/scatterpolargl.js",
+      "require": "./dist/npm/cjs/traces/scatterpolargl/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

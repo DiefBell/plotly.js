@@ -35,7 +35,7 @@ function getViewport(fullLayout, xaxis, yaxis, plotGlPixelRatio) {
     ];
 }
 
-var exports = module.exports = function plot(gd, subplot, cdata) {
+var exports: any = module.exports = function plot(gd, subplot, cdata) {
     if(!cdata.length) return;
 
     var fullLayout = gd._fullLayout;

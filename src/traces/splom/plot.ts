@@ -37,7 +37,7 @@ function plotOne(gd, cd0) {
 
     var visibleDims = trace._visibleDims;
     var visibleLength = cdata.length;
-    var viewOpts = scene.viewOpts = {};
+    var viewOpts: any = scene.viewOpts = {};
     viewOpts.ranges = new Array(visibleLength);
     viewOpts.domains = new Array(visibleLength);
 

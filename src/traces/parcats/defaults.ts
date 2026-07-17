@@ -29,7 +29,7 @@ function handleLineDefaults(traceIn, traceOut, defaultColor, layout, coerce) {
 }
 
 function dimensionDefaults(dimensionIn, dimensionOut) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(dimensionIn, dimensionOut, attributes.dimensions, attr, dflt);
     }
 
@@ -69,7 +69,7 @@ function dimensionDefaults(dimensionIn, dimensionOut) {
 }
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

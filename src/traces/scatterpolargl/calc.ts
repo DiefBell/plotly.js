@@ -14,7 +14,7 @@ module.exports = function calc(gd, trace) {
     var rArray = trace._r = radialAxis.makeCalcdata(trace, 'r');
     var thetaArray = trace._theta = angularAxis.makeCalcdata(trace, 'theta');
     var len = trace._length;
-    var stash = {};
+    var stash: any = {};
 
     if(len < rArray.length) rArray = rArray.slice(0, len);
     if(len < thetaArray.length) thetaArray = thetaArray.slice(0, len);

@@ -10,7 +10,7 @@ var mergeLength = require('../parcoords/merge_length');
 var isOpenSymbol = require('../scattergl/helpers').isOpenSymbol;
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
@@ -53,7 +53,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
 };
 
 function dimensionDefaults(dimIn, dimOut) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(dimIn, dimOut, attributes.dimensions, attr, dflt);
     }
 
@@ -109,7 +109,7 @@ function handleAxisDefaults(traceIn, traceOut, layout, coerce) {
         list.push(axId);
 
         if (!(axId in stash)) {
-            var s = (stash[axId] = {});
+            var s: any = (stash[axId] = {});
             if (dim) {
                 s.label = dim.label || '';
                 if (dim.visible && dim.axis) {

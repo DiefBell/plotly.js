@@ -112,7 +112,9 @@ async function buildEsm() {
         'traces/treemap': path.join(constants.pathToSrc, 'traces/treemap/index.ts'),
         'traces/icicle': path.join(constants.pathToSrc, 'traces/icicle/index.ts'),
         'traces/box': path.join(constants.pathToSrc, 'traces/box/index.ts'),
-        'traces/violin': path.join(constants.pathToSrc, 'traces/violin/index.ts')
+        'traces/violin': path.join(constants.pathToSrc, 'traces/violin/index.ts'),
+        'traces/ohlc': path.join(constants.pathToSrc, 'traces/ohlc/index.ts'),
+        'traces/candlestick': path.join(constants.pathToSrc, 'traces/candlestick/index.ts')
     };
 
     await build({

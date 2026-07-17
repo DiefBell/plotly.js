@@ -203,9 +203,7 @@ module.exports = {
             scatter3d: xyzAttrs,
             surface: xyzAttrs,
             mesh3d: xyzAttrs,
-            scattergl: xyAttrs,
-            ohlc: xAttrs,
-            candlestick: xAttrs
+            scattergl: xyAttrs
         }
     },
 

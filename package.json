@@ -99,6 +99,16 @@
       "import": "./dist/npm/esm/traces/violin.js",
       "require": "./dist/npm/cjs/traces/violin/index.js"
     },
+    "./traces/ohlc": {
+      "types": "./dist/npm/types/traces/ohlc/index.d.ts",
+      "import": "./dist/npm/esm/traces/ohlc.js",
+      "require": "./dist/npm/cjs/traces/ohlc/index.js"
+    },
+    "./traces/candlestick": {
+      "types": "./dist/npm/types/traces/candlestick/index.d.ts",
+      "import": "./dist/npm/esm/traces/candlestick.js",
+      "require": "./dist/npm/cjs/traces/candlestick/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

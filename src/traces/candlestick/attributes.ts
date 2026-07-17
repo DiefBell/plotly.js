@@ -55,5 +55,7 @@ module.exports = {
     whiskerwidth: extendFlat({}, boxAttrs.whiskerwidth, { dflt: 0 }),
 
     hoverlabel: OHLCattrs.hoverlabel,
-    zorder: boxAttrs.zorder
+    zorder: boxAttrs.zorder,
+
+    xcalendar: OHLCattrs.xcalendar
 };

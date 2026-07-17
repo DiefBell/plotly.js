@@ -7,6 +7,10 @@ const { hovertemplateAttrs, templatefallbackAttrs } = require('../../plots/templ
 var dash = require('../../components/drawing/attributes').dash;
 var fxAttrs = require('../../components/fx/attributes');
 var delta = require('../../constants/delta.js');
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/calendars/index.js, which no longer carries an
+// `ohlc` entry in its schema.traces
+var calendarAttrs = require('../../components/calendars').xAttrs;
 
 var INCREASING_COLOR = delta.INCREASING.COLOR;
 var DECREASING_COLOR = delta.DECREASING.COLOR;
@@ -134,5 +138,7 @@ module.exports = {
         }
     }),
 
-    zorder: scatterAttrs.zorder
+    zorder: scatterAttrs.zorder,
+
+    xcalendar: calendarAttrs.xcalendar
 };

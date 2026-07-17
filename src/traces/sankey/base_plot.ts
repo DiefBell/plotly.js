@@ -69,7 +69,7 @@ function subplotUpdateFx(gd, index) {
 
     // Note: dragOptions is needed to be declared for all dragmodes because
     // it's the object that holds persistent selection state.
-    var dragOptions = {
+    var dragOptions: any = {
         gd: gd,
         element: bgRect.node(),
         plotinfo: {

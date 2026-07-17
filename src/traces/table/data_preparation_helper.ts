@@ -183,7 +183,7 @@ function makeAnchorToRowBlock(rowHeights, minimumFillHeight) {
     return anchorToRowBlock;
 }
 
-function makeIdentity() {
+function makeIdentity(): any {
     return {
         firstRowIndex: null,
         lastRowIndex: null,

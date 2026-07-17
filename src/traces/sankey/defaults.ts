@@ -10,7 +10,7 @@ var Template = require('../../plot_api/plot_template');
 var handleArrayContainerDefaults = require('../../plots/array_container_defaults');
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
@@ -20,7 +20,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     var nodeIn = traceIn.node;
     var nodeOut = Template.newContainer(traceOut, 'node');
 
-    function coerceNode(attr, dflt) {
+    function coerceNode(attr, dflt?) {
         return Lib.coerce(nodeIn, nodeOut, attributes.node, attr, dflt);
     }
     coerceNode('label');
@@ -49,7 +49,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     var linkIn = traceIn.link || {};
     var linkOut = Template.newContainer(traceOut, 'link');
 
-    function coerceLink(attr, dflt) {
+    function coerceLink(attr, dflt?) {
         return Lib.coerce(linkIn, linkOut, attributes.link, attr, dflt);
     }
     coerceLink('label');
@@ -114,7 +114,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
 };
 
 function concentrationscalesDefaults(In, Out) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(In, Out, attributes.link.colorscales, attr, dflt);
     }
 

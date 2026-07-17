@@ -13,7 +13,7 @@ var handleTickLabelDefaults = require('../../plots/cartesian/tick_label_defaults
 var handlePrefixSuffixDefaults = require('../../plots/cartesian/prefix_suffix_defaults');
 
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
@@ -77,10 +77,10 @@ function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
 
     // Gauge attributes
     var gaugeIn, gaugeOut, axisIn, axisOut;
-    function coerceGauge(attr, dflt) {
+    function coerceGauge(attr, dflt?) {
         return Lib.coerce(gaugeIn, gaugeOut, attributes.gauge, attr, dflt);
     }
-    function coerceGaugeAxis(attr, dflt) {
+    function coerceGaugeAxis(attr, dflt?) {
         return Lib.coerce(axisIn, axisOut, attributes.gauge.axis, attr, dflt);
     }
 
@@ -151,7 +151,7 @@ function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
 }
 
 function stepDefaults(stepIn, stepOut) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(stepIn, stepOut, attributes.gauge.steps, attr, dflt);
     }
 

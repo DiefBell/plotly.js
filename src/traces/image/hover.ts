@@ -45,7 +45,7 @@ module.exports = function hoverPoints(pointData, xval, yval) {
     var c = trace._scaler(pixel);
     var s = cr.suffix;
 
-    var colorstring = [];
+    var colorstring: any = [];
     if(trace.hovertemplate || fmtColor) {
         colorstring.push('[' + [c[0] + s[0], c[1] + s[1], c[2] + s[2]].join(', '));
         if(dims === 4) colorstring.push(', ' + c[3] + s[3]);

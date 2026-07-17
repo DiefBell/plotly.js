@@ -150,7 +150,7 @@ module.exports = function plot(gd, plotinfo, cdimage, imageLayer) {
         }
         image3.attr('style', style);
 
-        var p = new Promise(function(resolve) {
+        var p = new Promise<void>(function(resolve) {
             if(trace._hasZ) {
                 resolve();
             } else if(trace._hasSource) {

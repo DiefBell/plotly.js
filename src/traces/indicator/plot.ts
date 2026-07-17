@@ -404,7 +404,7 @@ function drawAngularGauge(gd, plotGroup, cd, opts) {
         return (ax.range[0] - d.x) / (ax.range[1] - ax.range[0]) * Math.PI + Math.PI;
     };
 
-    var labelFns = {};
+    var labelFns: any = {};
     var out = Axes.makeLabelFns(ax, 0);
     var labelStandoff = out.labelStandoff;
     labelFns.xFn = function(d) {
@@ -805,7 +805,7 @@ function arcTween(arc, endAngle, newAngle) {
 }
 
 // mocks our axis
-function mockAxis(gd, opts, zrange) {
+function mockAxis(gd, opts, zrange?) {
     var fullLayout = gd._fullLayout;
 
     var axisIn = Lib.extendFlat({
@@ -815,7 +815,7 @@ function mockAxis(gd, opts, zrange) {
         showline: true
     }, opts);
 
-    var axisOut = {
+    var axisOut: any = {
         type: 'linear',
         _id: 'x' + opts._id
     };

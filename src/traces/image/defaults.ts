@@ -6,7 +6,7 @@ var constants = require('./constants');
 var dataUri = require('../../snapshot/helpers').IMAGE_URL_PREFIX;
 
 module.exports = function supplyDefaults(traceIn, traceOut) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
     coerce('source');

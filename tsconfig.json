@@ -65,7 +65,11 @@
         "src/traces/contour/**/*.ts",
         "src/traces/scattersmith/**/*.ts",
         "src/traces/scatterternary/**/*.ts",
-        "src/traces/scatterpolar/**/*.ts"
+        "src/traces/scatterpolar/**/*.ts",
+        "src/traces/image/**/*.ts",
+        "src/traces/indicator/**/*.ts",
+        "src/traces/table/**/*.ts",
+        "src/traces/sankey/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

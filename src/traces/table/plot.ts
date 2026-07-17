@@ -259,7 +259,7 @@ function flatData(selection) {
         .map(function(g) {return g.__data__;});
 }
 
-function renderScrollbarKit(tableControlView, gd, bypassVisibleBar) {
+function renderScrollbarKit(tableControlView, gd, bypassVisibleBar?) {
     function calcTotalHeight(d) {
         var blocks = d.rowBlocks;
         return firstRowAnchor(blocks, blocks.length - 1) + (blocks.length ? rowsHeight(blocks[blocks.length - 1], Infinity) : 1);
@@ -715,7 +715,7 @@ function updateBlockYPosition(gd, cellsColumnBlock, tableControlView) {
     }
 }
 
-function makeDragRow(gd, allTableControlView, optionalMultiplier, optionalPosition) {
+function makeDragRow(gd, allTableControlView, optionalMultiplier?, optionalPosition?) {
     return function dragRow(eventD) {
         // may come from whichever DOM event target: drag, wheel, bar... eventD corresponds to event target
         var d = eventD.calcdata ? eventD.calcdata : eventD;
@@ -837,7 +837,7 @@ function updateYPositionMaker(columnBlock, element, tableControlView, gd, d) {
     };
 }
 
-function xPosition(d, optionalWidth) {
+function xPosition(d, optionalWidth?) {
     switch(d.align) {
         case 'left': return c.cellPad;
         case 'right': return d.column.columnWidth - (optionalWidth || 0) - c.cellPad;

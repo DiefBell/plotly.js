@@ -224,6 +224,26 @@
       "import": "./dist/npm/esm/traces/scatterpolar.js",
       "require": "./dist/npm/cjs/traces/scatterpolar/index.js"
     },
+    "./traces/image": {
+      "types": "./dist/npm/types/traces/image/index.d.ts",
+      "import": "./dist/npm/esm/traces/image.js",
+      "require": "./dist/npm/cjs/traces/image/index.js"
+    },
+    "./traces/indicator": {
+      "types": "./dist/npm/types/traces/indicator/index.d.ts",
+      "import": "./dist/npm/esm/traces/indicator.js",
+      "require": "./dist/npm/cjs/traces/indicator/index.js"
+    },
+    "./traces/table": {
+      "types": "./dist/npm/types/traces/table/index.d.ts",
+      "import": "./dist/npm/esm/traces/table.js",
+      "require": "./dist/npm/cjs/traces/table/index.js"
+    },
+    "./traces/sankey": {
+      "types": "./dist/npm/types/traces/sankey/index.d.ts",
+      "import": "./dist/npm/esm/traces/sankey.js",
+      "require": "./dist/npm/cjs/traces/sankey/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

@@ -6,7 +6,7 @@ var dfltConfig = require('../plot_api/plot_config').dfltConfig;
 
 var notifier = require('./notifier');
 
-var loggers = module.exports = {};
+var loggers: any = module.exports = {};
 
 /**
  * ------------------------------------------

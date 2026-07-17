@@ -1,0 +1,32 @@
+{
+    "compilerOptions": {
+        "target": "ES2016",
+        "lib": ["ES2016", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleDetection": "force",
+        "moduleResolution": "Bundler",
+        "allowJs": true,
+        "checkJs": false,
+        "strict": false,
+        "noImplicitAny": false,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+        "forceConsistentCasingInFileNames": true,
+        "declaration": true,
+        "emitDeclarationOnly": true,
+        "outDir": "./dist/npm/types",
+        "rootDir": "./src"
+    },
+    "include": [
+        "src/globals.d.ts",
+        "src/lib/**/*.ts",
+        "src/registry.ts",
+        "src/core.ts",
+        "src/index.ts",
+        "src/traces/scatter/**/*.ts"
+    ],
+    "exclude": ["node_modules", "dist", "build", "test", "lib"]
+}

@@ -57,7 +57,7 @@ function calc(gd, trace) {
     var hasPeriodY = !!trace.yperiodalignment;
 
     for(i = 0; i < serieslen; i++) {
-        var cdi = cd[i] = {};
+        var cdi: any = cd[i] = {};
         var xValid = isNumeric(x[i]);
         var yValid = isNumeric(y[i]);
         if(xValid && yValid) {
@@ -171,8 +171,8 @@ function calcAxisExpansion(gd, trace, xa, ya, x, y, ppad) {
 
     // check whether bounds should be tight, padded, extended to zero...
     // most cases both should be padded on both ends, so start with that.
-    var xOptions = {padded: true};
-    var yOptions = {padded: true};
+    var xOptions: any = {padded: true};
+    var yOptions: any = {padded: true};
 
     if(ppad) {
         xOptions.ppad = yOptions.ppad = ppad;
@@ -241,7 +241,7 @@ function calcMarkerSize(trace, serieslen) {
 
     if(Lib.isArrayOrTypedArray(marker.size)) {
         // I tried auto-type but category and dates dont make much sense.
-        var ax = {type: 'linear'};
+        var ax: any = {type: 'linear'};
         Axes.setConvert(ax);
 
         var s = ax.makeCalcdata(trace.marker, 'size');

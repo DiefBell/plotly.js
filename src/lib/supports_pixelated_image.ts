@@ -24,7 +24,7 @@ function supportsPixelatedImage() {
     if(window.navigator.userAgent && !unsupportedBrowser) {
         var declarations = Array.from(constants.CSS_DECLARATIONS).reverse();
 
-        var supports = (window.CSS && window.CSS.supports) || window.supportsCSS;
+        var supports: any = (window.CSS && window.CSS.supports) || window.supportsCSS;
         if(typeof supports === 'function') {
             _supportsPixelated = declarations.some(function(d) {
                 return supports.apply(null, d);

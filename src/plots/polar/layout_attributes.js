@@ -58,6 +58,7 @@ var radialAxisAttrs = {
         values: ['-', 'linear', 'log', 'date', 'category']
     }),
     autotypenumbers: axesAttrs.autotypenumbers,
+    calendar: axesAttrs.calendar,
 
     autorangeoptions: {
         minallowed: axesAttrs.autorangeoptions.minallowed,

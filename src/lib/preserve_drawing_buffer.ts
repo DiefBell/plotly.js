@@ -29,7 +29,7 @@ module.exports = function preserveDrawingBuffer(opts) {
                 for(var k = i - 1; k > -1; k--) {
                     var prevPart = allParts[k];
                     if(prevPart.slice(0, 8) === 'Version/') {
-                        var v = prevPart.slice(8).split('.')[0];
+                        var v: any = prevPart.slice(8).split('.')[0];
                         if(isNumeric(v)) v = +v;
                         if(v >= 13) return true;
                     }

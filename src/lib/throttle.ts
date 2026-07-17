@@ -60,7 +60,7 @@ exports.done = function(id) {
     var cache = timerCache[id];
     if(!cache || !cache.timer) return Promise.resolve();
 
-    return new Promise(function(resolve) {
+    return new Promise<void>(function(resolve) {
         var previousOnDone = cache.onDone;
         cache.onDone = function onDone() {
             if(previousOnDone) previousOnDone();

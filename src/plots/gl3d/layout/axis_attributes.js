@@ -7,6 +7,7 @@ var overrideAll = require('../../../plot_api/edit_types').overrideAll;
 
 module.exports = overrideAll({
     visible: axesAttrs.visible,
+    calendar: axesAttrs.calendar,
     showspikes: {
         valType: 'boolean',
         dflt: true,

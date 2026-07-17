@@ -51,7 +51,7 @@ exports.ensureArray = function(out, n) {
     return out;
 };
 
-var typedArrays = {
+var typedArrays: any = {
     u1c: typeof Uint8ClampedArray === 'undefined' ? undefined :
                 Uint8ClampedArray, // not supported in numpy?
 
@@ -105,7 +105,7 @@ function isArrayBuffer(a) {
 exports.isArrayBuffer = isArrayBuffer;
 
 exports.decodeTypedArraySpec = function(vIn) {
-    var out = [];
+    var out: any = [];
     var v = coerceTypedArraySpec(vIn);
     var dtype = v.dtype;
 

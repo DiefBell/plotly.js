@@ -235,7 +235,7 @@ function extractTraceFeature(calcTrace) {
             var geometry = fIn.geometry;
 
             if (geometry.type === 'Polygon' || geometry.type === 'MultiPolygon') {
-                var fOut = {
+                var fOut: any = {
                     type: 'Feature',
                     id: id,
                     geometry: geometry,

@@ -8,6 +8,17 @@ var templatedArray = require('../../plot_api/plot_template').templatedArray;
 var templateFormatStringDescription = require('../../plots/template_attributes').templateFormatStringDescription;
 var descriptionWithDates = require('../../plots/cartesian/axis_format_attributes').descriptionWithDates;
 
+var rangesliderAttrs = require('../../components/rangeslider/attributes');
+var rangesliderOppAxisAttrs = require('../../components/rangeslider/oppaxis_attributes');
+var rangeselectorAttrs = require('../../components/rangeselector/attributes');
+var calendarAxisAttr = require('../../components/calendars').axisCalendarAttribute;
+
+// composed the same way src/components/rangeslider/index.js used to
+// compose it for the (now removed) registry-driven schema.subplots.xaxis merge
+var rangesliderXaxisAttrs = extendFlat({}, rangesliderAttrs, {
+    yaxis: rangesliderOppAxisAttrs
+});
+
 var ONEDAY = require('../../constants/numerical').ONEDAY;
 var constants = require('./constants');
 var HOUR = constants.HOUR_PATTERN;
@@ -1286,5 +1297,12 @@ module.exports = {
             'Defaults to `layout.uirevision`.'
         ].join(' ')
     },
+    // rangeslider/rangeselector only apply to xaxis and calendar applies to
+    // both, but xaxis and yaxis are built from this same shared object -
+    // rangeslider/rangeselector are deleted from the yaxis schema in
+    // src/plot_api/plot_schema.js
+    rangeslider: rangesliderXaxisAttrs,
+    rangeselector: rangeselectorAttrs,
+    calendar: calendarAxisAttr,
     editType: 'calc',
 };

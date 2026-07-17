@@ -3,7 +3,7 @@
 var dot = require('./matrix').dot;
 var BADNUM = require('../constants/numerical').BADNUM;
 
-var polygon = module.exports = {};
+var polygon: any = module.exports = {};
 
 /**
  * Turn an array of [x, y] pairs into a polygon object

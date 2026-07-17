@@ -12,9 +12,6 @@ module.exports = {
     name: 'fx',
 
     constants: require('./constants'),
-    schema: {
-        layout: layoutAttributes
-    },
 
     attributes: require('./attributes'),
     layoutAttributes: layoutAttributes,

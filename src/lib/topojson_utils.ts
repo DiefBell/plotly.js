@@ -1,6 +1,6 @@
 'use strict';
 
-var topojsonUtils = module.exports = {};
+var topojsonUtils: any = module.exports = {};
 
 var locationmodeToLayer = require('../plots/geo/constants').locationmodeToLayer;
 var topojsonFeature = require('topojson-client').feature;

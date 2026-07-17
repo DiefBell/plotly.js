@@ -2,6 +2,7 @@ var path = require('path');
 var fs = require('fs');
 
 var falafel = require('falafel');
+var esbuild = require('esbuild');
 var { glob } = require('glob');
 var madge = require('madge');
 var readLastLines = require('read-last-lines');
@@ -14,6 +15,7 @@ var hasJasmineTestTag = common.hasJasmineTestTag;
 
 var constants = require('./util/constants');
 var srcGlob = path.join(constants.pathToSrc, '**/*.js');
+var srcTsGlob = path.join(constants.pathToSrc, '**/*.ts');
 var libGlob = path.join(constants.pathToLib, '**/*.js');
 var testGlob = path.join(constants.pathToJasmineTests, '**/*.js');
 var bundleTestGlob = path.join(constants.pathToJasmineBundleTests, '**/*.js');
@@ -102,13 +104,22 @@ function assertSrcContents() {
 
     var getComputedStyleCnt = 0;
 
-    glob(combineGlobs([srcGlob, libGlob])).then((files) => {
+    glob(combineGlobs([srcGlob, srcTsGlob, libGlob])).then((files) => {
         files.forEach(function(file) {
             var code = fs.readFileSync(file, 'utf-8');
 
+            if(path.extname(file) === '.ts') {
+                // falafel (acorn) cannot parse TS-only syntax (type
+                // annotations, optional params, generics, etc.) - strip it
+                // via esbuild first. This shifts line numbers slightly for
+                // any error reported below, but keeps require()/identifier
+                // structure intact for the checks that matter here.
+                code = esbuild.transformSync(code, { loader: 'ts' }).code;
+            }
+
             // parse through code string while keeping track of comments
             var comments = [];
-            falafel(code, { ecmaVersion: 'latest', locations: true, onComment: comments }, function(node) {
+            falafel(code, { ecmaVersion: 'latest', sourceType: 'module', locations: true, onComment: comments }, function(node) {
                 // look for .classList
                 if(node.type === 'MemberExpression') {
                     var source = node.source();
@@ -130,7 +141,29 @@ function assertSrcContents() {
                         if(pathStr.charAt(0) === '.') {
                             pathStr = path.relative(__dirname, path.join(path.dirname(file), pathStr));
                         }
-                        var fullPath = require.resolve(pathStr);
+                        var fullPath;
+                        try {
+                            fullPath = require.resolve(pathStr);
+                        } catch(e) {
+                            // require.resolve() has no notion of .ts files (a
+                            // bundler resolves these, plain Node can't) - if
+                            // resolution failed, check whether an explicit
+                            // .ts file, or a directory with a .ts index,
+                            // exists on disk instead.
+                            var resolvedBase = path.resolve(__dirname, pathStr);
+                            var tsCandidates = [
+                                resolvedBase + '.ts',
+                                path.join(resolvedBase, 'index.ts'),
+                                // pathStr may already have an explicit .js extension
+                                resolvedBase.replace(/\.js$/, '.ts')
+                            ];
+                            var tsMatch = tsCandidates.filter(fs.existsSync)[0];
+                            if(tsMatch) {
+                                fullPath = tsMatch;
+                            } else {
+                                throw e;
+                            }
+                        }
                         var casedPath = trueCasePath(fullPath);
 
                         if(fullPath !== trueCasePath(fullPath)) {
@@ -271,7 +304,12 @@ function assertCircularDeps() {
 }
 
 function combineGlobs(arr) {
-    return '{' + arr.join(',') + '}';
+    // the `glob` package expects forward slashes in patterns (backslash is
+    // its escape character) - path.join() produces OS-native separators, so
+    // on Windows this normalization is required or every pattern silently
+    // matches zero files.
+    var posix = arr.map(function(p) { return p.split(path.sep).join('/'); });
+    return '{' + posix.join(',') + '}';
 }
 
 function log(name, logs) {

@@ -480,7 +480,7 @@ exports.coerceFont = function(coerce, attr, dfltObj, opts) {
     dfltObj = extendFlat({}, dfltObj);
     dfltObj = extendFlat(dfltObj, opts.overrideDflt || {});
 
-    var out = {
+    var out: any = {
         family: coerce(attr + '.family', dfltObj.family),
         size: coerce(attr + '.size', dfltObj.size),
         color: coerce(attr + '.color', dfltObj.color),

@@ -1,6 +1,12 @@
 'use strict';
 
-var Registry = require('../registry');
+// lazy require to break a require cycle: registry.js -> plots/layout_attributes.js
+// -> components/calendars (and others) -> lib (this file, via lib/index.ts) -> here
+var _Registry;
+function getRegistry() {
+    if(!_Registry) _Registry = require('../registry');
+    return _Registry;
+}
 
 /**
  * localize: translate a string for the current locale
@@ -33,7 +39,7 @@ module.exports = function localize(gd, s) {
                 var out = dict[s];
                 if(out) return out;
             }
-            locales = Registry.localeRegistry;
+            locales = getRegistry().localeRegistry;
         }
 
         var baseLocale = locale.split('-')[0];

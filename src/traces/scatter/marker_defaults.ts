@@ -12,7 +12,7 @@ var subTypes = require('./subtypes');
  *   gradient: caller supports gradients
  *   noSelect: caller does not support selected/unselected attribute containers
  */
-module.exports = function markerDefaults(traceIn, traceOut, defaultColor, layout, coerce, opts = {}) {
+module.exports = function markerDefaults(traceIn, traceOut, defaultColor, layout, coerce, opts: any = {}) {
     var isBubble = subTypes.isBubble(traceIn);
     var lineColor = (traceIn.line || {}).color;
     var defaultMLC;

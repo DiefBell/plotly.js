@@ -34,7 +34,7 @@ function copyArgArray(gd, args) {
 // -----------------------------------------------------
 
 
-var queue = {};
+var queue: any = {};
 
 // TODO: disable/enable undo and redo buttons appropriately
 

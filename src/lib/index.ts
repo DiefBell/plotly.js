@@ -10,7 +10,7 @@ var MAX_SAFE = numConstants.FP_SAFE;
 var MIN_SAFE = -MAX_SAFE;
 var BADNUM = numConstants.BADNUM;
 
-var lib = (module.exports = {});
+var lib: any = {};
 
 lib.adjustFormat = function adjustFormat(formatStr) {
     if (!formatStr || /^\d[.]\df/.test(formatStr) || /[.]\d%/.test(formatStr)) return formatStr;
@@ -368,7 +368,7 @@ lib.OptionControl = function (opt, optname) {
     if (!opt) opt = {};
     if (!optname) optname = 'opt';
 
-    var self = {};
+    var self: any = {};
     self.optionList = [];
 
     self._newoption = function (optObj) {
@@ -1413,3 +1413,32 @@ lib.getPositionFromD3Event = function () {
         return [d3.event.offsetX, d3.event.offsetY];
     }
 };
+
+export const {
+    adjustFormat, warnBadFormat, noFormat, numberFormat, nestedProperty, keyedContainer, relativeAttr, isPlainObject,
+    toLogRange, relinkPrivateKeys, isArrayBuffer, isTypedArray, isArrayOrTypedArray, isArray1D, ensureArray, concat,
+    maxRowLength, minRowLength, mod, modHalf, valObjectMeta, coerce, coerce2, coerceFont,
+    coercePattern, coerceHoverinfo, coerceSelectionMarkerOpacity, validate, dateTime2ms, isDateTime, ms2DateTime, ms2DateTimeLocal,
+    cleanDate, isJSDate, formatDate, incrementMonth, dateTick0, dfltRange, findExactDates, MIN_MS,
+    MAX_MS, findBin, sorterAsc, sorterDes, distinctVals, roundUp, sort, findIndexOfMin,
+    sortObjectKeys, aggNums, len, mean, geometricMean, median, midRange, variance,
+    stdev, interp, init2dArray, transposeRagged, dot, translationMatrix, rotationMatrix, rotationXYMatrix,
+    apply3DTransform, apply2DTransform, apply2DTransform2, convertCssMatrix, inverseTransformMatrix, deg2rad, rad2deg, angleDelta,
+    angleDist, isFullCircle, isAngleInsideSector, isPtInsideSector, pathArc, pathSector, pathAnnulus, isLeftAnchor,
+    isCenterAnchor, isRightAnchor, isTopAnchor, isMiddleAnchor, isBottomAnchor, segmentsIntersect, segmentDistance, getTextLocation,
+    clearLocationCache, getVisibleSegment, findPointOnPath, extendFlat, extendDeep, extendDeepAll, extendDeepNoArrays, log,
+    warn, error, counterRegex, throttle, throttleDone, clearThrottle, getGraphDiv, isPlotDiv,
+    removeElement, addStyleRule, addRelatedStyleRule, deleteRelatedStyleRule, setStyleOnHover, getFullTransformMatrix, getElementTransformMatrix, getElementAndAncestors,
+    equalDomRects, clearResponsive, preserveDrawingBuffer, makeTraceGroups, _, notifier, filterUnique, filterVisible,
+    pushUnique, increment, cleanNumber, ensureNumber, isIndex, noop, identity, repeat,
+    swapAttrs, raiseToTop, cancelTransition, constrain, bBoxIntersect, simpleMap, randstr, OptionControl,
+    smooth, syncOrAsync, stripTrailingSlash, noneOrAll, mergeArray, mergeArrayCastPositive, fillArray, castOption,
+    extractOption, tagSelected, selIndices2selPoints, getTargetArray, titleCase, containsAny, isSafari,
+    isIOS, isMacWKWebView, getFirefoxVersion, isD3Selection, ensureSingle, ensureSingleById, objectFromPath, expandObjectPaths,
+    numSeparate, TEMPLATE_STRING_REGEX, templateString, hovertemplateString, texttemplateString, texttemplateStringForShapes, subplotSort, seedPseudoRandom,
+    pseudoRandom, fillText, isValidTextValue, formatPercent, isHidden, strTranslate, strRotate, strScale,
+    getTextTransform, setTransormAndDisplay, ensureUniformFontSize, join2, bigFont, getPositionFromD3Event
+} = lib;
+export { minExtend };
+
+export default lib;

@@ -7,12 +7,6 @@ module.exports = {
     moduleType: 'component',
     name: 'annotations3d',
 
-    schema: {
-        subplots: {
-            scene: {annotations: require('./attributes')}
-        }
-    },
-
     layoutAttributes: require('./attributes'),
     handleDefaults: require('./defaults'),
     includeBasePlot: includeGL3D,

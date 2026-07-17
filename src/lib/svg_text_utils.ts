@@ -63,7 +63,7 @@ exports.convertToTspans = function(_context, gd, _callback) {
     }
 
     if(tex) {
-        ((gd && gd._promises) || []).push(new Promise(function(resolve) {
+        ((gd && gd._promises) || []).push(new Promise<void>(function(resolve) {
             _context.style('display', 'none');
             var fontSize = parseInt(_context.node().style.fontSize, 10);
             var config = {fontSize: fontSize};
@@ -590,7 +590,7 @@ function buildSVGText(containerNode, str) {
 
     function enterNode(nodeSpec) {
         var type = nodeSpec.type;
-        var nodeAttrs = {};
+        var nodeAttrs: any = {};
         var nodeType;
 
         if(type === 'a') {
@@ -685,7 +685,7 @@ function buildSVGText(containerNode, str) {
             } else {
                 var extra = match[4];
 
-                var nodeSpec = {type: tagType};
+                var nodeSpec: any = {type: tagType};
 
                 // now add style, from both the tag name and any extra css
                 // Most of the svg css that users will care about is just like html,
@@ -770,7 +770,7 @@ exports.sanitizeHTML = function sanitizeHTML(str) {
                 var extra = match[4];
 
                 var css = getQuotedMatch(extra, STYLEMATCH);
-                var nodeAttrs = css ? {style: css} : {};
+                var nodeAttrs: any = css ? {style: css} : {};
 
                 if(tagType === 'a') {
                     var href = getQuotedMatch(extra, HREFMATCH);

@@ -5,8 +5,12 @@ var animationAttrs = require('./animation_attributes');
 var colorAttrs = require('../components/color/attributes');
 var drawNewShapeAttrs = require('../components/shapes/draw_newshape/attributes');
 var drawNewSelectionAttrs = require('../components/selections/draw_newselection/attributes');
+var gridAttrs = require('../components/grid/attributes');
+var fxLayoutAttrs = require('../components/fx/layout_attributes');
+var calendars = require('../components/calendars');
 var padAttrs = require('./pad_attributes');
 var extendFlat = require('../lib/extend').extendFlat;
+var extendDeepAll = require('../lib/extend').extendDeepAll;
 
 var globalFont = fontAttrs({
     editType: 'calc',
@@ -20,8 +24,10 @@ globalFont.family.dflt = '"Open Sans", verdana, arial, sans-serif';
 globalFont.size.dflt = 12;
 globalFont.color.dflt = colorAttrs.defaultLine;
 
-module.exports = {
+module.exports = extendDeepAll({
     font: globalFont,
+    grid: gridAttrs,
+    calendar: calendars.layoutCalendarAttribute,
     title: {
         text: {
             valType: 'string',
@@ -451,4 +457,4 @@ module.exports = {
         ].join(' '),
         editType: 'none'
     }),
-};
+}, fxLayoutAttrs);

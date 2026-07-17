@@ -193,8 +193,11 @@ module.exports = {
     name: 'calendars',
 
     schema: {
+        // scatter's xy/xyz calendar attrs are composed directly into
+        // src/traces/scatter/attributes.js; the remaining trace types below
+        // still get theirs injected by the registry until they too convert
+        // to static composition.
         traces: {
-            scatter: xyAttrs,
             bar: xyAttrs,
             box: xyAttrs,
             heatmap: xyAttrs,
@@ -208,32 +211,23 @@ module.exports = {
             scattergl: xyAttrs,
             ohlc: xAttrs,
             candlestick: xAttrs
-        },
-        layout: {
-            calendar: makeAttrs([
-                'Sets the default calendar system to use for interpreting and',
-                'displaying dates throughout the plot.'
-            ].join(' '))
-        },
-        subplots: {
-            xaxis: {calendar: axisAttrs},
-            yaxis: {calendar: axisAttrs},
-            scene: {
-                xaxis: {calendar: axisAttrs},
-                // TODO: it's actually redundant to include yaxis and zaxis here
-                // because in the scene attributes these are the same object so merging
-                // into one merges into them all. However, I left them in for parity with
-                // cartesian, where yaxis is unused until we Plotschema.get() when we
-                // use its presence or absence to determine whether to delete attributes
-                // from yaxis if they only apply to x (rangeselector/rangeslider)
-                yaxis: {calendar: axisAttrs},
-                zaxis: {calendar: axisAttrs}
-            },
-            polar: {
-                radialaxis: {calendar: axisAttrs}
-            }
         }
     },
+
+    // composed layout/subplot calendar attrs, statically imported into
+    // plots/layout_attributes.js, plots/cartesian/layout_attributes.js,
+    // plots/gl3d/layout/attributes.js and plots/polar/layout_attributes.js
+    layoutCalendarAttribute: makeAttrs([
+        'Sets the default calendar system to use for interpreting and',
+        'displaying dates throughout the plot.'
+    ].join(' ')),
+    axisCalendarAttribute: axisAttrs,
+
+    // exposed for traces that compose their calendar attrs statically
+    // (e.g. src/traces/scatter/attributes.js) instead of via the registry
+    xAttrs: xAttrs,
+    xyAttrs: xyAttrs,
+    xyzAttrs: xyzAttrs,
 
     layoutAttributes: attributes,
 

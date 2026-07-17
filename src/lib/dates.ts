@@ -14,7 +14,13 @@ var ONEMIN = constants.ONEMIN;
 var ONESEC = constants.ONESEC;
 var EPOCHJD = constants.EPOCHJD;
 
-var Registry = require('../registry');
+// lazy require to break a require cycle: registry.js -> plots/layout_attributes.js
+// -> components/calendars (and others) -> lib (this file, via lib/index.ts) -> here
+var _Registry;
+function getRegistry() {
+    if(!_Registry) _Registry = require('../registry');
+    return _Registry;
+}
 
 var utcFormat = require('d3-time-format').utcFormat;
 
@@ -28,7 +34,7 @@ var YFIRST = new Date().getFullYear() - 70;
 function isWorldCalendar(calendar) {
     return (
         calendar &&
-        Registry.componentsRegistry.calendars &&
+        getRegistry().componentsRegistry.calendars &&
         typeof calendar === 'string' && calendar !== 'gregorian'
     );
 }
@@ -55,8 +61,8 @@ exports.dateTick0 = function(calendar, dayOfWeek) {
 function _dateTick0(calendar, sunday) {
     if(isWorldCalendar(calendar)) {
         return sunday ?
-            Registry.getComponentMethod('calendars', 'CANONICAL_SUNDAY')[calendar] :
-            Registry.getComponentMethod('calendars', 'CANONICAL_TICK')[calendar];
+            getRegistry().getComponentMethod('calendars', 'CANONICAL_SUNDAY')[calendar] :
+            getRegistry().getComponentMethod('calendars', 'CANONICAL_TICK')[calendar];
     } else {
         return sunday ? '2000-01-02' : '2000-01-01';
     }
@@ -67,7 +73,7 @@ function _dateTick0(calendar, sunday) {
  */
 exports.dfltRange = function(calendar) {
     if(isWorldCalendar(calendar)) {
-        return Registry.getComponentMethod('calendars', 'DFLTRANGE')[calendar];
+        return getRegistry().getComponentMethod('calendars', 'DFLTRANGE')[calendar];
     } else {
         return ['2000-01-01', '2001-01-01'];
     }
@@ -188,7 +194,7 @@ exports.dateTime2ms = function(s, calendar) {
 
         var cDate;
         try {
-            var calInstance = Registry.getComponentMethod('calendars', 'getCal')(calendar);
+            var calInstance = getRegistry().getComponentMethod('calendars', 'getCal')(calendar);
             if(isChinese) {
                 var isIntercalary = m.charAt(m.length - 1) === 'i';
                 m = parseInt(m, 10);
@@ -261,7 +267,7 @@ exports.ms2DateTime = function(ms, r, calendar) {
         var dateJD = Math.floor(msRounded / ONEDAY) + EPOCHJD;
         var timeMs = Math.floor(mod(ms, ONEDAY));
         try {
-            dateStr = Registry.getComponentMethod('calendars', 'getCal')(calendar)
+            dateStr = getRegistry().getComponentMethod('calendars', 'getCal')(calendar)
                 .fromJD(dateJD).formatDate('yyyy-mm-dd');
         } catch(e) {
             // invalid date in this calendar - fall back to Gyyyy-mm-dd
@@ -400,7 +406,7 @@ function modDateFormat(fmt, x, formatter, calendar) {
 
     if(isWorldCalendar(calendar)) {
         try {
-            fmt = Registry.getComponentMethod('calendars', 'worldCalFmt')(fmt, x, calendar);
+            fmt = getRegistry().getComponentMethod('calendars', 'worldCalFmt')(fmt, x, calendar);
         } catch(e) {
             return 'Invalid';
         }
@@ -523,7 +529,7 @@ exports.incrementMonth = function(ms, dMonth, calendar) {
     if(calendar) {
         try {
             var dateJD = Math.round(ms / ONEDAY) + EPOCHJD;
-            var calInstance = Registry.getComponentMethod('calendars', 'getCal')(calendar);
+            var calInstance = getRegistry().getComponentMethod('calendars', 'getCal')(calendar);
             var cDate = calInstance.fromJD(dateJD);
 
             if(dMonth % 12) calInstance.add(cDate, dMonth, 'm');
@@ -556,7 +562,7 @@ exports.findExactDates = function(data, calendar) {
 
     var calInstance = (
         isWorldCalendar(calendar) &&
-        Registry.getComponentMethod('calendars', 'getCal')(calendar)
+        getRegistry().getComponentMethod('calendars', 'getCal')(calendar)
     );
 
     for(var i = 0; i < data.length; i++) {

@@ -71,7 +71,7 @@ function addRelatedStyleRule(uid, selector, styleString) {
         style.appendChild(document.createTextNode(''));
         document.head.appendChild(style);
     }
-    var styleSheet = style.sheet;
+    var styleSheet = (style as any).sheet;
 
     if(!styleSheet) {
         loggers.warn('Cannot addRelatedStyleRule, probably due to strict CSP...');

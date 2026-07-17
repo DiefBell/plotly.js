@@ -8,7 +8,6 @@ var addStyleRule = require('./lib/dom').addStyleRule;
 var ExtendModule = require('./lib/extend');
 
 var basePlotAttributes = require('./plots/attributes');
-var baseLayoutAttributes = require('./plots/layout_attributes');
 
 var extendFlat = ExtendModule.extendFlat;
 var extendDeepAll = ExtendModule.extendDeepAll;
@@ -260,10 +259,6 @@ function registerSubplot(_module) {
 
     // not sure what's best for the 'cartesian' type at this point
     exports.subplotsRegistry[plotType] = _module;
-
-    for(var componentName in exports.componentsRegistry) {
-        mergeComponentAttrsToSubplot(componentName, _module.name);
-    }
 }
 
 function registerComponentModule(_module) {
@@ -285,13 +280,15 @@ function registerComponentModule(_module) {
         mergeComponentAttrsToTrace(name, traceType);
     }
 
-    for(var subplotName in exports.subplotsRegistry) {
-        mergeComponentAttrsToSubplot(name, subplotName);
-    }
-
-    if(_module.schema && _module.schema.layout) {
-        extendDeepAll(baseLayoutAttributes, _module.schema.layout);
-    }
+    // NOTE: components no longer merge layout/subplot attrs into
+    // baseLayoutAttributes / subplot layoutAttributes at registration time.
+    // That composition now happens statically - see
+    // src/plots/layout_attributes.js, src/plots/cartesian/layout_attributes.js,
+    // src/plots/gl3d/layout/layout_attributes.js and
+    // src/plots/polar/layout_attributes.js, which import the relevant
+    // component attrs directly. Only per-trace attrs (schema.traces, used by
+    // errorbars/calendars for traces not yet converted to static composition)
+    // still go through the mutation path below.
 }
 
 function registerTransformModule(_module) {
@@ -375,21 +372,6 @@ function mergeComponentAttrsToTrace(componentName, traceType) {
     var traceAttrs = componentSchema.traces[traceType];
     if(traceAttrs) {
         extendDeepAll(exports.modules[traceType]._module.attributes, traceAttrs);
-    }
-}
-
-function mergeComponentAttrsToSubplot(componentName, subplotName) {
-    var componentSchema = exports.componentsRegistry[componentName].schema;
-    if(!componentSchema || !componentSchema.subplots) return;
-
-    var subplotModule = exports.subplotsRegistry[subplotName];
-    var subplotAttrs = subplotModule.layoutAttributes;
-    var subplotAttr = subplotModule.attr === 'subplot' ? subplotModule.name : subplotModule.attr;
-    if(Array.isArray(subplotAttr)) subplotAttr = subplotAttr[0];
-
-    var componentLayoutAttrs = componentSchema.subplots[subplotAttr];
-    if(subplotAttrs && componentLayoutAttrs) {
-        extendDeepAll(subplotAttrs, componentLayoutAttrs);
     }
 }
 

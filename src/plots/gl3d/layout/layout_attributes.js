@@ -4,6 +4,7 @@ var gl3dAxisAttrs = require('./axis_attributes');
 var domainAttrs = require('../../domain').attributes;
 var extendFlat = require('../../../lib/extend').extendFlat;
 var counterRegex = require('../../../lib').counterRegex;
+var annotations3dAttrs = require('../../../components/annotations3d/attributes');
 
 function makeCameraVector(x, y, z) {
     return {
@@ -28,6 +29,8 @@ function makeCameraVector(x, y, z) {
 
 module.exports = {
     _arrayAttrRegexps: [counterRegex('scene', '.annotations', true)],
+
+    annotations: annotations3dAttrs,
 
     bgcolor: {
         valType: 'color',

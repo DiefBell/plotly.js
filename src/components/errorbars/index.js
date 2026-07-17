@@ -28,8 +28,11 @@ module.exports = {
     name: 'errorbars',
 
     schema: {
+        // scatter's error_x/error_y attrs are composed directly into
+        // src/traces/scatter/attributes.ts; the remaining trace types below
+        // still get theirs injected by the registry until they too convert
+        // to static composition.
         traces: {
-            scatter: xyAttrs,
             bar: xyAttrs,
             histogram: xyAttrs,
             scatter3d: overrideAll(xyzAttrs, 'calc', 'nested'),

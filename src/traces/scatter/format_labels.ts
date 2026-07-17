@@ -3,7 +3,7 @@
 var Axes = require('../../plots/cartesian/axes');
 
 module.exports = function formatLabels(cdi, trace, fullLayout) {
-    var labels = {};
+    var labels: any = {};
 
     var mockGd = {_fullLayout: fullLayout};
     var xa = Axes.getFromTrace(mockGd, trace, 'x');

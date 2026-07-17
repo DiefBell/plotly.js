@@ -6,6 +6,7 @@ build/*
 
 dist/*.LICENSE.txt
 dist/*.css
+dist/npm/
 
 npm-debug.log*
 *.sublime*

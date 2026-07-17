@@ -14,6 +14,21 @@ var extendFlat = require('../../lib/extend').extendFlat;
 
 var makeFillcolorAttr = require('./fillcolor_attribute');
 
+// error_x/error_y and xcalendar/ycalendar used to be injected into this
+// trace's attributes at Registry registration time (see
+// src/components/errorbars/index.js and src/components/calendars/index.js,
+// both of which used to declare a `scatter` entry in their `schema.traces`).
+// scatter now composes them directly, the same way any other directly
+// imported/extended attribute group in this file is composed.
+var errorBarsBaseAttrs = require('../../components/errorbars/attributes');
+var errorXAttrs = extendFlat({}, errorBarsBaseAttrs);
+var errorYAttrs = extendFlat({}, errorBarsBaseAttrs);
+delete errorXAttrs.copy_zstyle;
+delete errorYAttrs.copy_zstyle;
+delete errorYAttrs.copy_ystyle;
+
+var calendarAttrs = require('../../components/calendars').xyAttrs;
+
 function axisPeriod(axis) {
     return {
         valType: 'any',
@@ -685,5 +700,11 @@ module.exports = {
             'other SVG traces on the same subplot. SVG traces with higher `zorder`',
             'appear in front of those with lower `zorder`.'
         ].join(' ')
-    }
+    },
+
+    error_x: errorXAttrs,
+    error_y: errorYAttrs,
+
+    xcalendar: calendarAttrs.xcalendar,
+    ycalendar: calendarAttrs.ycalendar
 };

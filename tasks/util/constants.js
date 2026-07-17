@@ -170,8 +170,17 @@ module.exports = {
     strictIndex: strictIndex,
     pathToPlotlyIndex: pathToPlotlyIndex,
     pathToPlotlyStrict: pathToPlotlyStrict,
-    pathToPlotlyCore: path.join(pathToSrc, 'core.js'),
+    pathToPlotlyCore: path.join(pathToSrc, 'core.ts'),
     pathToPlotlyVersion: path.join(pathToSrc, 'version.js'),
+
+    // ESM-clean npm entry (src/index.ts), used only for the dual CJS/ESM
+    // npm-consumer build (dist/npm/**) - NOT the browser-global IIFE build
+    // above, which still entry-points at lib/index.js unchanged.
+    pathToPlotlyIndexEsm: path.join(pathToSrc, 'index.ts'),
+    pathToDistNpm: path.join(pathToDist, 'npm/'),
+    pathToDistNpmCjs: path.join(pathToDist, 'npm/cjs/'),
+    pathToDistNpmEsm: path.join(pathToDist, 'npm/esm/'),
+    pathToDistNpmTypes: path.join(pathToDist, 'npm/types/'),
     pathToPlotlyBuild: path.join(pathToBuild, 'plotly.js'),
     pathToPlotlyBuildMin: path.join(pathToBuild, 'plotly.min.js'),
     pathToPlotlyDist: path.join(pathToDist, 'plotly.js'),
@@ -191,6 +200,7 @@ module.exports = {
 
     pathToTopojsonSrc: pathToTopojsonSrc,
     pathToTopojsonDist: path.join(pathToDist, 'topojson/'),
+    pathToStackglModules: path.join(pathToRoot, 'stackgl_modules/'),
     pathToPlotlyGeoAssetsSrc: path.join(pathToSrc, 'assets/geo_assets.js'),
     pathToPlotlyGeoAssetsDist: path.join(pathToDist, 'plotly-geo-assets.js'),
 

@@ -23,6 +23,17 @@ var ARRAY_ATTR_REGEXPS = '_arrayAttrRegexps';
 var DEPRECATED = '_deprecated';
 var UNDERSCORE_ATTRS = [IS_SUBPLOT_OBJ, IS_LINKED_TO_ARRAY, ARRAY_ATTR_REGEXPS, DEPRECATED];
 
+// components whose layout/subplot attrs are composed statically (rather than
+// merged in here at schema-build time) - see the skip in getLayoutAttributes
+var STATICALLY_COMPOSED_LAYOUT_COMPONENTS = {
+    grid: true,
+    fx: true,
+    rangeslider: true,
+    rangeselector: true,
+    annotations3d: true,
+    calendars: true
+};
+
 exports.IS_SUBPLOT_OBJ = IS_SUBPLOT_OBJ;
 exports.IS_LINKED_TO_ARRAY = IS_LINKED_TO_ARRAY;
 exports.DEPRECATED = DEPRECATED;
@@ -486,35 +497,35 @@ function getLayoutAttributes() {
         }
     }
 
+    /*
+     * xaxis and yaxis are built from the same source object
+     * (src/plots/cartesian/layout_attributes.js), which statically composes in
+     * rangeslider/rangeselector/calendar attrs that only apply to xaxis, plus
+     * shift/autoshift attrs that only apply to yaxis - so it's not possible to
+     * only add them to one from the start. Delete them from the other here.
+     * If we ever have such asymmetry anywhere else, extend this block too.
+     */
+    if(layoutAttributes.yaxis) {
+        delete layoutAttributes.yaxis.rangeslider;
+        delete layoutAttributes.yaxis.rangeselector;
+    }
+    if(layoutAttributes.xaxis) {
+        delete layoutAttributes.xaxis.shift;
+        delete layoutAttributes.xaxis.autoshift;
+    }
+
     // add registered components layout attributes
     for(key in Registry.componentsRegistry) {
         _module = Registry.componentsRegistry[key];
-        var schema = _module.schema;
 
-        if(schema && (schema.subplots || schema.layout)) {
-            /*
-             * Components with defined schema have already been merged in at register time
-             * but a few components define attributes that apply only to xaxis
-             * not yaxis (rangeselector, rangeslider) - delete from y schema.
-             * Note that the input attributes for xaxis/yaxis are the same object
-             * so it's not possible to only add them to xaxis from the start.
-             * If we ever have such asymmetry the other way, or anywhere else,
-             * we will need to extend both this code and mergeComponentAttrsToSubplot
-             * (which will not find yaxis only for example)
-             */
-            var subplots = schema.subplots;
-            if(subplots && subplots.xaxis && !subplots.yaxis) {
-                for(var xkey in subplots.xaxis) {
-                    delete layoutAttributes.yaxis[xkey];
-                }
-            }
-
-            /*
-             * Also some attributes e.g. shift & autoshift only implemented on the yaxis
-             * at the moment. Remove them from the xaxis.
-            */
-            delete layoutAttributes.xaxis.shift;
-            delete layoutAttributes.xaxis.autoshift;
+        if(STATICALLY_COMPOSED_LAYOUT_COMPONENTS[_module.name]) {
+            // these components' layout/subplot attrs are statically composed
+            // directly into baseLayoutAttributes / the relevant subplot module's
+            // layoutAttributes (see src/plots/layout_attributes.js,
+            // src/plots/cartesian/layout_attributes.js,
+            // src/plots/gl3d/layout/attributes.js), so they're already present
+            // in `layoutAttributes` above - nothing further to merge in here.
+            continue;
         } else if(_module.name === 'colorscale') {
             extendDeepAll(layoutAttributes, _module.layoutAttributes);
         } else if(_module.layoutAttributes) {

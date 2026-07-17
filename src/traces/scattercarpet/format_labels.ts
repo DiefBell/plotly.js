@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function formatLabels(cdi, trace) {
-    var labels = {};
+    var labels: any = {};
 
     var carpet = trace._carpet;
     var ij = carpet.ab2ij([cdi.a, cdi.b]);

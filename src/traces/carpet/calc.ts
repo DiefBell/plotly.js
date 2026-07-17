@@ -33,7 +33,7 @@ module.exports = function calc(gd, trace) {
     x = trace._x || trace.x;
     y = trace._y || trace.y;
 
-    var t = {};
+    var t: any = {};
 
     if(trace._cheater) {
         var avals = aax.cheatertype === 'index' ? a.length : a;

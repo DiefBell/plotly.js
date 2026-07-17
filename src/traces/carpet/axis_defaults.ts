@@ -29,11 +29,11 @@ module.exports = function handleAxisDefaults(containerIn, containerOut, options)
     var font = options.font || {};
     var attributes = carpetAttrs[letter + 'axis'];
 
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(containerIn, containerOut, attributes, attr, dflt);
     }
 
-    function coerce2(attr, dflt) {
+    function coerce2(attr, dflt?) {
         return Lib.coerce2(containerIn, containerOut, attributes, attr, dflt);
     }
 

@@ -80,7 +80,7 @@ function drawClipPath(trace, t, layer, xaxis, yaxis) {
     path.attr('d', clipPathData);
 }
 
-function drawGridLines(xaxis, yaxis, layer, axis, axisLetter, gridlines, isStatic) {
+function drawGridLines(xaxis, yaxis, layer, axis, axisLetter, gridlines, isStatic, unused?) {
     var lineClass = 'const-' + axisLetter + '-lines';
     var gridJoin = layer.selectAll('.' + lineClass).data(gridlines);
 
@@ -117,7 +117,7 @@ function drawAxisLabels(gd, xaxis, yaxis, trace, t, layer, labels, labelClass) {
         .classed(labelClass, true);
 
     var maxExtent = 0;
-    var labelOrientation = {};
+    var labelOrientation: any = {};
 
     labelJoin.each(function(label, i) {
         // Most of the positioning is done in calc_labels. Only the parts that depend upon

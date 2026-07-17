@@ -126,7 +126,7 @@ module.exports = function setConvert(trace) {
     };
 
     trace.ab2xy = function(aval, bval, extrapolate) {
-        if(!extrapolate && (aval < a[0] || aval > a[na - 1] | bval < b[0] || bval > b[nb - 1])) {
+        if(!extrapolate && (aval < a[0] || aval > a[na - 1] || bval < b[0] || bval > b[nb - 1])) {
             return [false, false];
         }
         var i = trace.a2i(aval);

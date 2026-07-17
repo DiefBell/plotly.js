@@ -46,7 +46,7 @@ module.exports = function calcGridlines(trace, axisLetter, crossAxisLetter) {
         var i, j, j0, tj, pxy, i0, ti, xy, dxydi0, dxydi1, dxydj0, dxydj1;
         var xpoints = [];
         var ypoints = [];
-        var ret = {};
+        var ret: any = {};
         // Search for the fractional grid index giving this line:
         if(axisLetter === 'b') {
             // For the position we use just the i-j coordinates:
@@ -148,7 +148,7 @@ module.exports = function calcGridlines(trace, axisLetter, crossAxisLetter) {
         var j, i0, j0, ti, tj;
         var xpoints = [];
         var ypoints = [];
-        var ret = {};
+        var ret: any = {};
         ret.length = data.length;
         ret.crossLength = crossData.length;
 

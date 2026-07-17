@@ -129,7 +129,10 @@ async function buildEsm() {
         'traces/choroplethmapbox': path.join(constants.pathToSrc, 'traces/choroplethmapbox/index.ts'),
         'traces/choroplethmap': path.join(constants.pathToSrc, 'traces/choroplethmap/index.ts'),
         'traces/densitymapbox': path.join(constants.pathToSrc, 'traces/densitymapbox/index.ts'),
-        'traces/densitymap': path.join(constants.pathToSrc, 'traces/densitymap/index.ts')
+        'traces/densitymap': path.join(constants.pathToSrc, 'traces/densitymap/index.ts'),
+        'traces/carpet': path.join(constants.pathToSrc, 'traces/carpet/index.ts'),
+        'traces/scattercarpet': path.join(constants.pathToSrc, 'traces/scattercarpet/index.ts'),
+        'traces/contourcarpet': path.join(constants.pathToSrc, 'traces/contourcarpet/index.ts')
     };
 
     await build({

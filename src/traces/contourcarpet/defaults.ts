@@ -9,7 +9,7 @@ var handleContoursDefaults = require('../contour/contours_defaults');
 var handleStyleDefaults = require('../contour/style_defaults');
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

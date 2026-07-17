@@ -57,7 +57,10 @@
         "src/traces/choroplethmapbox/**/*.ts",
         "src/traces/choroplethmap/**/*.ts",
         "src/traces/densitymapbox/**/*.ts",
-        "src/traces/densitymap/**/*.ts"
+        "src/traces/densitymap/**/*.ts",
+        "src/traces/carpet/**/*.ts",
+        "src/traces/scattercarpet/**/*.ts",
+        "src/traces/contourcarpet/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

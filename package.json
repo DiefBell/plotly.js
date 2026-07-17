@@ -184,6 +184,21 @@
       "import": "./dist/npm/esm/traces/densitymap.js",
       "require": "./dist/npm/cjs/traces/densitymap/index.js"
     },
+    "./traces/carpet": {
+      "types": "./dist/npm/types/traces/carpet/index.d.ts",
+      "import": "./dist/npm/esm/traces/carpet.js",
+      "require": "./dist/npm/cjs/traces/carpet/index.js"
+    },
+    "./traces/scattercarpet": {
+      "types": "./dist/npm/types/traces/scattercarpet/index.d.ts",
+      "import": "./dist/npm/esm/traces/scattercarpet.js",
+      "require": "./dist/npm/cjs/traces/scattercarpet/index.js"
+    },
+    "./traces/contourcarpet": {
+      "types": "./dist/npm/types/traces/contourcarpet/index.d.ts",
+      "import": "./dist/npm/esm/traces/contourcarpet.js",
+      "require": "./dist/npm/cjs/traces/contourcarpet/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

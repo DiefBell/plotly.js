@@ -7,7 +7,7 @@ var attributes = require('./attributes');
 var colorAttrs = require('../../components/color/attributes');
 
 module.exports = function supplyDefaults(traceIn, traceOut, dfltColor, fullLayout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

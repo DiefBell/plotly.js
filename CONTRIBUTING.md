@@ -212,6 +212,39 @@ generated shader files. Commit any changes that result — both the
 `src/generated/regl-codegen/` updates and any modified `regl_precompiled.js`
 files.
 
+#### TypeScript build
+
+Source files under `src/` are being converted to TypeScript incrementally — `.ts`
+and `.js` files coexist in the same directories, and `allowJs`/gradual typing
+(`strict: false`, `any` as an accepted escape hatch) means both are valid targets
+for new work. `tsconfig.json`'s `include` list is the source of truth for which
+paths have been converted so far.
+
+For day-to-day development (test dashboard, `npm run test-jasmine`), nothing
+extra is required — esbuild and `karma-esbuild` resolve `.ts` and `.js`
+imports/requires transparently, same as today.
+
+The npm package additionally ships compiled, dual CommonJS/ESM output plus type
+declarations, built from the converted `.ts` files:
+
+- `npm run bundle-npm` — esbuild produces an unbundled CJS mirror of `src/` at
+  `dist/npm/cjs/`, and a bundled, code-split, multi-entry-point ESM build at
+  `dist/npm/esm/` (see `entryPoints` in `tasks/bundle_npm.mjs` — each entry
+  there is a separately tree-shakeable import for consumers).
+- `npm run build-npm-types` — runs `tsc --emitDeclarationOnly`, emitting `.d.ts`
+  files to `dist/npm/types/`, scoped to `tsconfig.json`'s `include` list.
+
+Both are part of `npm run build` and populate the `dist/npm/*` targets in
+`package.json`'s `exports` map. `npm run test-types` (`tsc --noEmit`) type-checks
+the converted files without emitting anything, and is part of `npm test`.
+
+When converting a new file to TypeScript:
+1. Rename it `.js` → `.ts` and add its path to `tsconfig.json`'s `include`.
+2. Run `npm run test-types` to catch type errors.
+3. If it's a trace `index.ts` that should get its own tree-shakeable ESM
+   import (e.g. `plotly.js/traces/<name>`), add an entry point for it in
+   `tasks/bundle_npm.mjs` and a matching subpath in `package.json`'s `exports`.
+
 #### Other npm scripts that may be of interest in development
 
 - `npm run preprocess`: pre-processes the css and svg source file in js. This

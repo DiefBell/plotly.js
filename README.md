@@ -54,6 +54,13 @@ var Plotly = require('plotly.js-dist-min')
 
 You may also consider using [`plotly.js-dist`](https://www.npmjs.com/package/plotly.js-dist) if you prefer using an unminified package.
 
+The `plotly.js` package itself also ships dual CommonJS/ESM builds, supporting both a full namespace import and tree-shakeable per-trace imports:
+```js
+import * as Plotly from 'plotly.js'       // full library
+import Scatter from 'plotly.js/traces/scatter' // single trace, ESM tree-shakeable
+```
+Trace types are being converted to ESM-tree-shakeable modules incrementally; traces without a dedicated entry point yet are still reachable (e.g. `plotly.js/traces/bar`) but aren't tree-shakeable until converted.
+
 ---
 ## Load via script tag
 

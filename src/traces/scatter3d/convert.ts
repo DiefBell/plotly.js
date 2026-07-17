@@ -144,7 +144,7 @@ function calculateTextOffset(tp) {
     var defaultAlignmentX = 0;
     var defaultAlignmentY = 0;
 
-    var textOffset = [defaultAlignmentX, defaultAlignmentY];
+    var textOffset: any = [defaultAlignmentX, defaultAlignmentY];
 
     if (Array.isArray(tp)) {
         for (var i = 0; i < tp.length; i++) {
@@ -171,7 +171,7 @@ function calculateSymbol(symbolIn) {
     return MARKER_SYMBOLS[symbolIn];
 }
 
-function formatParam(paramIn, len, calculate, dflt, extraFn) {
+function formatParam(paramIn, len, calculate, dflt, extraFn?) {
     var paramOut = null;
 
     if (Lib.isArrayOrTypedArray(paramIn)) {
@@ -500,7 +500,7 @@ proto.update = function (data) {
     }
 
     if (options.delaunayAxis >= 0) {
-        var delaunayOptions = constructDelaunay(options.position, options.delaunayColor, options.delaunayAxis);
+        var delaunayOptions: any = constructDelaunay(options.position, options.delaunayColor, options.delaunayAxis);
         delaunayOptions.opacity = data.opacity;
 
         if (this.delaunayMesh) {

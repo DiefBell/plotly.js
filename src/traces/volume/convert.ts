@@ -77,7 +77,7 @@ proto.update = function(data) {
 
     var cells = zip3(data._meshI, data._meshJ, data._meshK);
 
-    var config = {
+    var config: any = {
         positions: positions,
         cells: cells,
         lightPosition: [data.lightposition.x, data.lightposition.y, data.lightposition.z],

@@ -539,7 +539,7 @@ proto.update = function(data) {
     }
     rawCoords = []; // free memory
 
-    var params = {
+    var params: any = {
         colormap: colormap,
         levels: [[], [], []],
         showContour: [true, true, true],

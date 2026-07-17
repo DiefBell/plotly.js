@@ -12,6 +12,26 @@ var MARKER_SYMBOLS = require('../../constants/gl3d_markers');
 var extendFlat = require('../../lib/extend').extendFlat;
 var overrideAll = require('../../plot_api/edit_types').overrideAll;
 var sortObjectKeys = require('../../lib/sort_object_keys');
+// error_x/error_y/error_z and xcalendar/ycalendar/zcalendar used to be
+// injected into this trace's attributes at Registry registration time - see
+// src/components/errorbars/index.js and src/components/calendars/index.js,
+// neither of which carries a `scatter3d` entry in its schema.traces anymore.
+// The errorbar group is run through its own overrideAll('calc', 'nested')
+// pass here, matching errorbars/index.js's own pre-injection treatment of
+// xyzAttrs, since it's merged in below *after* this file's own overrideAll
+// call already ran over the rest of the trace's attributes.
+var errorBarsBaseAttrs = require('../../components/errorbars/attributes');
+var xyzErrorAttrsIn = {
+    error_x: extendFlat({}, errorBarsBaseAttrs),
+    error_y: extendFlat({}, errorBarsBaseAttrs),
+    error_z: extendFlat({}, errorBarsBaseAttrs)
+};
+delete xyzErrorAttrsIn.error_x.copy_ystyle;
+delete xyzErrorAttrsIn.error_y.copy_ystyle;
+delete xyzErrorAttrsIn.error_z.copy_ystyle;
+delete xyzErrorAttrsIn.error_z.copy_zstyle;
+var xyzErrorAttrs = overrideAll(xyzErrorAttrsIn, 'calc', 'nested');
+var calendarAttrs = require('../../components/calendars').xyzAttrs;
 
 var scatterLineAttrs = scatterAttrs.line;
 var scatterMarkerAttrs = scatterAttrs.marker;
@@ -179,3 +199,11 @@ var attrs = (module.exports = overrideAll(
 ));
 
 attrs.x.editType = attrs.y.editType = attrs.z.editType = 'calc+clearAxisTypes';
+
+attrs.error_x = xyzErrorAttrs.error_x;
+attrs.error_y = xyzErrorAttrs.error_y;
+attrs.error_z = xyzErrorAttrs.error_z;
+
+attrs.xcalendar = calendarAttrs.xcalendar;
+attrs.ycalendar = calendarAttrs.ycalendar;
+attrs.zcalendar = calendarAttrs.zcalendar;

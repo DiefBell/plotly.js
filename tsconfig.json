@@ -42,7 +42,14 @@
         "src/traces/box/**/*.ts",
         "src/traces/violin/**/*.ts",
         "src/traces/ohlc/**/*.ts",
-        "src/traces/candlestick/**/*.ts"
+        "src/traces/candlestick/**/*.ts",
+        "src/traces/surface/**/*.ts",
+        "src/traces/scatter3d/**/*.ts",
+        "src/traces/mesh3d/**/*.ts",
+        "src/traces/streamtube/**/*.ts",
+        "src/traces/cone/**/*.ts",
+        "src/traces/isosurface/**/*.ts",
+        "src/traces/volume/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

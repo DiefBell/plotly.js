@@ -6,7 +6,7 @@ var colorscaleDefaults = require('../../components/colorscale/defaults');
 var attributes = require('./attributes');
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
@@ -36,12 +36,10 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
         return;
     }
 
-    coerce('starts.x');
-    coerce('starts.y');
-    coerce('starts.z');
+    var sizemode = coerce('sizemode');
+    coerce('sizeref', sizemode === 'raw' ? 1 : 0.5);
 
-    coerce('maxdisplayed');
-    coerce('sizeref');
+    coerce('anchor');
 
     coerce('lighting.ambient');
     coerce('lighting.diffuse');
@@ -66,7 +64,5 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     coerce('zhoverformat');
 
     // disable 1D transforms (for now)
-    // x/y/z and u/v/w have matching lengths,
-    // but they don't have to match with starts.(x|y|z)
     traceOut._length = null;
 };

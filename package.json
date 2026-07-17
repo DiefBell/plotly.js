@@ -109,6 +109,41 @@
       "import": "./dist/npm/esm/traces/candlestick.js",
       "require": "./dist/npm/cjs/traces/candlestick/index.js"
     },
+    "./traces/surface": {
+      "types": "./dist/npm/types/traces/surface/index.d.ts",
+      "import": "./dist/npm/esm/traces/surface.js",
+      "require": "./dist/npm/cjs/traces/surface/index.js"
+    },
+    "./traces/scatter3d": {
+      "types": "./dist/npm/types/traces/scatter3d/index.d.ts",
+      "import": "./dist/npm/esm/traces/scatter3d.js",
+      "require": "./dist/npm/cjs/traces/scatter3d/index.js"
+    },
+    "./traces/mesh3d": {
+      "types": "./dist/npm/types/traces/mesh3d/index.d.ts",
+      "import": "./dist/npm/esm/traces/mesh3d.js",
+      "require": "./dist/npm/cjs/traces/mesh3d/index.js"
+    },
+    "./traces/streamtube": {
+      "types": "./dist/npm/types/traces/streamtube/index.d.ts",
+      "import": "./dist/npm/esm/traces/streamtube.js",
+      "require": "./dist/npm/cjs/traces/streamtube/index.js"
+    },
+    "./traces/cone": {
+      "types": "./dist/npm/types/traces/cone/index.d.ts",
+      "import": "./dist/npm/esm/traces/cone.js",
+      "require": "./dist/npm/cjs/traces/cone/index.js"
+    },
+    "./traces/isosurface": {
+      "types": "./dist/npm/types/traces/isosurface/index.d.ts",
+      "import": "./dist/npm/esm/traces/isosurface.js",
+      "require": "./dist/npm/cjs/traces/isosurface/index.js"
+    },
+    "./traces/volume": {
+      "types": "./dist/npm/types/traces/volume/index.d.ts",
+      "import": "./dist/npm/esm/traces/volume.js",
+      "require": "./dist/npm/cjs/traces/volume/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

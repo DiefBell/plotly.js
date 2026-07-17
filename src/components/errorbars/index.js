@@ -33,7 +33,6 @@ module.exports = {
         // still get theirs injected by the registry until they too convert
         // to static composition.
         traces: {
-            scatter3d: overrideAll(xyzAttrs, 'calc', 'nested'),
             scattergl: overrideAll(xyAttrs, 'calc', 'nested')
         }
     },

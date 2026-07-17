@@ -8,6 +8,10 @@ var baseAttrs = require('../../plots/attributes');
 
 var extendFlat = require('../../lib/extend').extendFlat;
 var overrideAll = require('../../plot_api/edit_types').overrideAll;
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/calendars/index.js, which no longer carries a
+// `surface` entry in its schema.traces
+var calendarAttrs = require('../../components/calendars').xyzAttrs;
 
 function makeContourProjAttr(axLetter) {
     return {
@@ -296,3 +300,7 @@ var attrs = (module.exports = overrideAll(
 ));
 
 attrs.x.editType = attrs.y.editType = attrs.z.editType = 'calc+clearAxisTypes';
+
+attrs.xcalendar = calendarAttrs.xcalendar;
+attrs.ycalendar = calendarAttrs.ycalendar;
+attrs.zcalendar = calendarAttrs.zcalendar;

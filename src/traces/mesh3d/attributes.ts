@@ -7,8 +7,12 @@ var surfaceAttrs = require('../surface/attributes');
 var baseAttrs = require('../../plots/attributes');
 
 var extendFlat = require('../../lib/extend').extendFlat;
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/calendars/index.js, which no longer carries a
+// `mesh3d` entry in its schema.traces
+var calendarAttrs = require('../../components/calendars').xyzAttrs;
 
-module.exports = extendFlat(
+var attrs = (module.exports = extendFlat(
     {
         x: {
             valType: 'data_array',
@@ -236,4 +240,8 @@ module.exports = extendFlat(
         hoverinfo: extendFlat({}, baseAttrs.hoverinfo, { editType: 'calc' }),
         showlegend: extendFlat({}, baseAttrs.showlegend, { dflt: false })
     }
-);
+));
+
+attrs.xcalendar = calendarAttrs.xcalendar;
+attrs.ycalendar = calendarAttrs.ycalendar;
+attrs.zcalendar = calendarAttrs.zcalendar;

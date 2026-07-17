@@ -8,7 +8,7 @@ var baseAttrs = require('../../plots/attributes');
 
 var extendFlat = require('../../lib/extend').extendFlat;
 
-var attrs = {
+var attrs: any = {
     x: {
         valType: 'data_array',
         editType: 'calc+clearAxisTypes',

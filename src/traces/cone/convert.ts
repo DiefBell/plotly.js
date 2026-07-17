@@ -52,7 +52,7 @@ var anchor2coneSpan = {tip: 1, tail: 1, cm: 0.75, center: 0.5};
 function convert(scene, trace) {
     var sceneLayout = scene.fullSceneLayout;
     var dataScale = scene.dataScale;
-    var coneOpts = {};
+    var coneOpts: any = {};
 
     function toDataCoords(arr, axisName) {
         var ax = sceneLayout[axisName];

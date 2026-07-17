@@ -44,7 +44,7 @@ function isValidScaleArray(scl) {
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
     var i, j;
 
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

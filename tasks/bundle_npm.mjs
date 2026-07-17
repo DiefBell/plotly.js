@@ -114,7 +114,14 @@ async function buildEsm() {
         'traces/box': path.join(constants.pathToSrc, 'traces/box/index.ts'),
         'traces/violin': path.join(constants.pathToSrc, 'traces/violin/index.ts'),
         'traces/ohlc': path.join(constants.pathToSrc, 'traces/ohlc/index.ts'),
-        'traces/candlestick': path.join(constants.pathToSrc, 'traces/candlestick/index.ts')
+        'traces/candlestick': path.join(constants.pathToSrc, 'traces/candlestick/index.ts'),
+        'traces/surface': path.join(constants.pathToSrc, 'traces/surface/index.ts'),
+        'traces/scatter3d': path.join(constants.pathToSrc, 'traces/scatter3d/index.ts'),
+        'traces/mesh3d': path.join(constants.pathToSrc, 'traces/mesh3d/index.ts'),
+        'traces/streamtube': path.join(constants.pathToSrc, 'traces/streamtube/index.ts'),
+        'traces/cone': path.join(constants.pathToSrc, 'traces/cone/index.ts'),
+        'traces/isosurface': path.join(constants.pathToSrc, 'traces/isosurface/index.ts'),
+        'traces/volume': path.join(constants.pathToSrc, 'traces/volume/index.ts')
     };
 
     await build({

@@ -90,7 +90,7 @@ proto.update = function(data) {
 
     var cells = zip3(data._meshI, data._meshJ, data._meshK);
 
-    var config = {
+    var config: any = {
         positions: positions,
         cells: cells,
         lightPosition: [data.lightposition.x, data.lightposition.y, data.lightposition.z],
@@ -289,7 +289,7 @@ function generateIsoMeshes(data) {
         return style;
     }
 
-    function drawTri(style, xyzv, abc) {
+    function drawTri(style, xyzv, abc): any {
         beginGroup();
 
         var allXYZVs = [xyzv];
@@ -326,7 +326,7 @@ function generateIsoMeshes(data) {
         }
     }
 
-    function drawQuad(style, xyzv, abcd) {
+    function drawQuad(style, xyzv, abcd): any {
         var makeTri = function(i, j, k) {
             drawTri(style, [xyzv[i], xyzv[j], xyzv[k]], [abcd[i], abcd[j], abcd[k]]);
         };
@@ -335,7 +335,7 @@ function generateIsoMeshes(data) {
         makeTri(2, 3, 0);
     }
 
-    function drawTetra(style, xyzv, abcd) {
+    function drawTetra(style, xyzv, abcd): any {
         var makeTri = function(i, j, k) {
             drawTri(style, [xyzv[i], xyzv[j], xyzv[k]], [abcd[i], abcd[j], abcd[k]]);
         };
@@ -395,7 +395,7 @@ function generateIsoMeshes(data) {
 
     var MAX_PASS = 3;
 
-    function tryCreateTri(style, xyzv, abc, min, max, nPass) {
+    function tryCreateTri(style, xyzv, abc, min, max, nPass?) {
         if(!nPass) nPass = 1;
 
         abc = [-1, -1, -1]; // Note: for the moment we override indices
@@ -635,7 +635,7 @@ function generateIsoMeshes(data) {
         }
     }
 
-    function beginSection(style, i, j, k, min, max, distRatios) {
+    function beginSection(style, i, j, k, min, max, distRatios, previousResult?) {
         // used to create slices between axis points
 
         var result = false;

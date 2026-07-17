@@ -200,8 +200,6 @@ module.exports = {
         traces: {
             heatmap: xyAttrs,
             contour: xyAttrs,
-            scatter3d: xyzAttrs,
-            surface: xyzAttrs,
             mesh3d: xyzAttrs,
             scattergl: xyAttrs
         }

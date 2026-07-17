@@ -81,7 +81,7 @@ function convert(scene, trace) {
     var sceneLayout = scene.fullSceneLayout;
     var dataScale = scene.dataScale;
     var len = trace._len;
-    var tubeOpts = {};
+    var tubeOpts: any = {};
 
     function toDataCoords(arr, axisName) {
         var ax = sceneLayout[axisName];

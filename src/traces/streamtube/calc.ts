@@ -226,7 +226,7 @@ function distinctVals(col) {
     return Lib.distinctVals(col).vals;
 }
 
-function filter(arr, len) {
+function filter(arr, len?) {
     if(len === undefined) len = arr.length;
 
     // no need for casting typed arrays to numbers

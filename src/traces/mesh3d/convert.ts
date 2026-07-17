@@ -136,7 +136,7 @@ proto.update = function(data) {
         cells = delaunayCells(data.delaunayaxis, positions);
     }
 
-    var config = {
+    var config: any = {
         positions: positions,
         cells: cells,
         lightPosition: [data.lightposition.x, data.lightposition.y, data.lightposition.z],

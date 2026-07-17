@@ -1,24 +1,24 @@
 'use strict';
 
 // ESM-clean equivalent of lib/index.js (the browser-IIFE entry point, left
-// untouched). This is the new npm "." entry: it statically imports core plus
-// every trace module and registers them, using real `import`/`export`
-// syntax so esbuild's ESM output has proper static exports - unlike
-// lib/index.js's `var Plotly = require('./core'); Plotly.register([...]);
-// module.exports = Plotly;` pattern, which is a dynamically-mutated object
-// esbuild's CJS->ESM interop can't derive named exports from cleanly.
+// untouched). This is the new npm "." entry: it statically imports core
+// (which does use real named `export`s) and registers every trace module.
 import * as core from './core';
 
-import ScatterModule from './traces/scatter';
-
-// The 47 trace/component modules below are not yet converted to TypeScript
-// (Phase 1 only converts `scatter`). They're required with plain `require()`
-// rather than `import`, deliberately: with `declaration: true`, TS attempts
-// declaration emit for every file reached via ES `import` syntax, and these
-// files weren't written to support that (private/anonymous inferred types
-// leak into what would be their .d.ts). `require()` resolves to `any` and
-// doesn't pull its target into TS's declaration-emit graph. Once a trace
-// converts to .ts in a later phase, move its import up next to ScatterModule.
+// Trace index.ts files intentionally use plain `module.exports = {...}`
+// (no real ES `export` syntax), even once converted to TypeScript: esbuild
+// compiles named `export const` bindings to getter-only accessor properties
+// on the CJS `exports` object, which breaks `spyOn(Trace, 'someMethod')` in
+// tests that `require()` a trace module directly. A plain mutable object
+// avoids that while still resolving correctly via default-import interop
+// for real npm consumers (e.g. `import BarChart from 'plotly.js/traces/bar'`
+// or `import BarModule from './traces/bar'` here) - so every trace, converted
+// or not, is required the same way. `require()` also keeps each trace's own
+// exports out of TS's declaration-emit graph (with `declaration: true`, an
+// `import` would pull the target's inferred types into what TS attempts to
+// declare-emit, which not every converted trace file is written to support
+// cleanly yet).
+var ScatterModule = require('./traces/scatter');
 var BarModule = require('./traces/bar');
 var BoxModule = require('./traces/box');
 var HeatmapModule = require('./traces/heatmap');

@@ -29,7 +29,7 @@ module.exports = function crossTraceDefaults(fullData, fullLayout) {
     var traceOut, traces, groupName, binDir;
     var i, j, k;
 
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceOut._input, traceOut, traceOut._module.attributes, attr, dflt);
     }
 

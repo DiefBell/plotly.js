@@ -8,6 +8,13 @@ var makeBinAttrs = require('./bin_attributes');
 var constants = require('./constants');
 var extendFlat = require('../../lib/extend').extendFlat;
 
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/errorbars/index.js and
+// src/components/calendars/index.js, which no longer carry a `histogram`
+// entry in their schema.traces
+var errorBarsAttrs = require('../../components/errorbars').xyAttrs;
+var calendarAttrs = require('../../components/calendars').xyAttrs;
+
 module.exports = {
     x: {
         valType: 'data_array',
@@ -236,5 +243,11 @@ module.exports = {
     selected: barAttrs.selected,
     unselected: barAttrs.unselected,
 
-    zorder: barAttrs.zorder
+    zorder: barAttrs.zorder,
+
+    error_x: errorBarsAttrs.error_x,
+    error_y: errorBarsAttrs.error_y,
+
+    xcalendar: calendarAttrs.xcalendar,
+    ycalendar: calendarAttrs.ycalendar
 };

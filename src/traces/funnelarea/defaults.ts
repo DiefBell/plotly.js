@@ -8,7 +8,7 @@ var handleLabelsAndValues = require('../pie/defaults').handleLabelsAndValues;
 var handleMarkerDefaults = require('../pie/defaults').handleMarkerDefaults;
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

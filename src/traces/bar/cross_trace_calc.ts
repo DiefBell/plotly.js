@@ -498,7 +498,7 @@ function setBarCenterAndWidth(pa, sieve) {
     }
 }
 
-function updatePositionAxis(pa, sieve, allowMinDtick) {
+function updatePositionAxis(pa, sieve, allowMinDtick?) {
     var calcTraces = sieve.traces;
     var minDiff = sieve.minDiff;
     var vpad = minDiff / 2;
@@ -838,7 +838,7 @@ function setHelperValuesForRoundedCorners(calcTraces, sMinByPos, sMaxByPos, pa) 
 // the same mapping is attached to all calcdata traces
 function collectExtents(calcTraces, pa) {
     var pLetter = getAxisLetter(pa);
-    var extents = {};
+    var extents: any = {};
     var i, j, cd;
 
     var pMin = Infinity;
@@ -859,7 +859,7 @@ function collectExtents(calcTraces, pa) {
     // the label is 1px too far out; so round positions to 1/10K in case
     // position values don't exactly match from trace to trace
     var roundFactor = 10000 / (pMax - pMin);
-    var round = (extents.round = function (p) {
+    var round = (extents.round = function(p) {
         return String(Math.round(roundFactor * (p - pMin)));
     });
 

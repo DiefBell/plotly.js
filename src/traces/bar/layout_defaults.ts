@@ -9,14 +9,14 @@ var validateCornerradius = require('./defaults').validateCornerradius;
 
 
 module.exports = function(layoutIn, layoutOut, fullData) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(layoutIn, layoutOut, layoutAttributes, attr, dflt);
     }
 
     var hasBars = false;
     var shouldBeGapless = false;
     var gappedAnyway = false;
-    var usedSubplots = {};
+    var usedSubplots: any = {};
 
     var mode = coerce('barmode');
     var isGroup = mode === 'group';

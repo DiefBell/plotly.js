@@ -1414,31 +1414,15 @@ lib.getPositionFromD3Event = function () {
     }
 };
 
-export const {
-    adjustFormat, warnBadFormat, noFormat, numberFormat, nestedProperty, keyedContainer, relativeAttr, isPlainObject,
-    toLogRange, relinkPrivateKeys, isArrayBuffer, isTypedArray, isArrayOrTypedArray, isArray1D, ensureArray, concat,
-    maxRowLength, minRowLength, mod, modHalf, valObjectMeta, coerce, coerce2, coerceFont,
-    coercePattern, coerceHoverinfo, coerceSelectionMarkerOpacity, validate, dateTime2ms, isDateTime, ms2DateTime, ms2DateTimeLocal,
-    cleanDate, isJSDate, formatDate, incrementMonth, dateTick0, dfltRange, findExactDates, MIN_MS,
-    MAX_MS, findBin, sorterAsc, sorterDes, distinctVals, roundUp, sort, findIndexOfMin,
-    sortObjectKeys, aggNums, len, mean, geometricMean, median, midRange, variance,
-    stdev, interp, init2dArray, transposeRagged, dot, translationMatrix, rotationMatrix, rotationXYMatrix,
-    apply3DTransform, apply2DTransform, apply2DTransform2, convertCssMatrix, inverseTransformMatrix, deg2rad, rad2deg, angleDelta,
-    angleDist, isFullCircle, isAngleInsideSector, isPtInsideSector, pathArc, pathSector, pathAnnulus, isLeftAnchor,
-    isCenterAnchor, isRightAnchor, isTopAnchor, isMiddleAnchor, isBottomAnchor, segmentsIntersect, segmentDistance, getTextLocation,
-    clearLocationCache, getVisibleSegment, findPointOnPath, extendFlat, extendDeep, extendDeepAll, extendDeepNoArrays, log,
-    warn, error, counterRegex, throttle, throttleDone, clearThrottle, getGraphDiv, isPlotDiv,
-    removeElement, addStyleRule, addRelatedStyleRule, deleteRelatedStyleRule, setStyleOnHover, getFullTransformMatrix, getElementTransformMatrix, getElementAndAncestors,
-    equalDomRects, clearResponsive, preserveDrawingBuffer, makeTraceGroups, _, notifier, filterUnique, filterVisible,
-    pushUnique, increment, cleanNumber, ensureNumber, isIndex, noop, identity, repeat,
-    swapAttrs, raiseToTop, cancelTransition, constrain, bBoxIntersect, simpleMap, randstr, OptionControl,
-    smooth, syncOrAsync, stripTrailingSlash, noneOrAll, mergeArray, mergeArrayCastPositive, fillArray, castOption,
-    extractOption, tagSelected, selIndices2selPoints, getTargetArray, titleCase, containsAny, isSafari,
-    isIOS, isMacWKWebView, getFirefoxVersion, isD3Selection, ensureSingle, ensureSingleById, objectFromPath, expandObjectPaths,
-    numSeparate, TEMPLATE_STRING_REGEX, templateString, hovertemplateString, texttemplateString, texttemplateStringForShapes, subplotSort, seedPseudoRandom,
-    pseudoRandom, fillText, isValidTextValue, formatPercent, isHidden, strTranslate, strRotate, strScale,
-    getTextTransform, setTransormAndDisplay, ensureUniformFontSize, join2, bigFont, getPositionFromD3Event
-} = lib;
-export { minExtend };
-
-export default lib;
+// Plain CommonJS module.exports (no real `export` syntax) is deliberate here:
+// esbuild compiles named `export const` bindings to getter-only accessor
+// properties on the CJS `exports` object (required for ESM live-binding
+// semantics), which breaks `spyOn(Lib, 'someMethod')` in the ~25 test files
+// that `require()` this module directly - assigning to a getter-only
+// property throws "not declared writable or has no setter". A plain mutable
+// object (matching the pre-conversion .js file's `var lib = (module.exports
+// = {});` pattern) keeps that working, and no converted file anywhere uses
+// named ESM imports against this module (every consumer does
+// `var Lib = require('../../lib')` or `require('../lib')` and accesses
+// properties dynamically), so nothing relies on the named-export shape.
+module.exports = lib;

@@ -33,12 +33,15 @@ module.exports = {
         // still get theirs injected by the registry until they too convert
         // to static composition.
         traces: {
-            bar: xyAttrs,
-            histogram: xyAttrs,
             scatter3d: overrideAll(xyzAttrs, 'calc', 'nested'),
             scattergl: overrideAll(xyAttrs, 'calc', 'nested')
         }
     },
+
+    // exposed for traces that compose their error-bar attrs statically
+    // (e.g. src/traces/bar/attributes.ts, src/traces/histogram/attributes.ts)
+    // instead of via the registry
+    xyAttrs: xyAttrs,
 
     supplyDefaults: require('./defaults'),
 

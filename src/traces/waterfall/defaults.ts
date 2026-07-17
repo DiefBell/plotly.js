@@ -21,7 +21,7 @@ function handleDirection(coerce, direction, defaultColor) {
 }
 
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

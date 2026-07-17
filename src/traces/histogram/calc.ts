@@ -175,7 +175,7 @@ function calc(gd, trace) {
     // create the "calculated data" to plot
     for(i = firstNonzero; i <= lastNonzero; i++) {
         if((isNumeric(pos[i]) && isNumeric(size[i]))) {
-            var cdi = {
+            var cdi: any = {
                 p: pos[i],
                 s: size[i],
                 b: 0
@@ -239,7 +239,7 @@ function calc(gd, trace) {
  * smallest bins of any of the auto values for all histograms inside the same
  * bingroup.
  */
-function calcAllAutoBins(gd, trace, pa, mainData, _overlayEdgeCase) {
+function calcAllAutoBins(gd, trace, pa, mainData, _overlayEdgeCase?) {
     var binAttr = mainData + 'bins';
     var fullLayout = gd._fullLayout;
     var groupName = trace['_' + mainData + 'bingroup'];

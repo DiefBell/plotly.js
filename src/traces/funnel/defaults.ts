@@ -10,7 +10,7 @@ var attributes = require('./attributes');
 var Color = require('../../components/color');
 
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 

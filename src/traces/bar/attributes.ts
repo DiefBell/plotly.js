@@ -10,6 +10,13 @@ var pattern = require('../../components/drawing/attributes').pattern;
 
 var extendFlat = require('../../lib/extend').extendFlat;
 
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/errorbars/index.js and
+// src/components/calendars/index.js, which no longer carry a `bar` entry in
+// their schema.traces
+var errorBarsAttrs = require('../../components/errorbars').xyAttrs;
+var calendarAttrs = require('../../components/calendars').xyAttrs;
+
 var textFontAttrs = fontAttrs({
     editType: 'calc',
     arrayOk: true,
@@ -227,5 +234,11 @@ module.exports = {
         textfont: scatterAttrs.unselected.textfont,
         editType: 'style'
     },
-    zorder: scatterAttrs.zorder
+    zorder: scatterAttrs.zorder,
+
+    error_x: errorBarsAttrs.error_x,
+    error_y: errorBarsAttrs.error_y,
+
+    xcalendar: calendarAttrs.xcalendar,
+    ycalendar: calendarAttrs.ycalendar
 };

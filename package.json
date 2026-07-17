@@ -29,6 +29,46 @@
       "import": "./dist/npm/esm/traces/scatter.js",
       "require": "./dist/npm/cjs/traces/scatter/index.js"
     },
+    "./traces/bar": {
+      "types": "./dist/npm/types/traces/bar/index.d.ts",
+      "import": "./dist/npm/esm/traces/bar.js",
+      "require": "./dist/npm/cjs/traces/bar/index.js"
+    },
+    "./traces/histogram": {
+      "types": "./dist/npm/types/traces/histogram/index.d.ts",
+      "import": "./dist/npm/esm/traces/histogram.js",
+      "require": "./dist/npm/cjs/traces/histogram/index.js"
+    },
+    "./traces/histogram2d": {
+      "types": "./dist/npm/types/traces/histogram2d/index.d.ts",
+      "import": "./dist/npm/esm/traces/histogram2d.js",
+      "require": "./dist/npm/cjs/traces/histogram2d/index.js"
+    },
+    "./traces/histogram2dcontour": {
+      "types": "./dist/npm/types/traces/histogram2dcontour/index.d.ts",
+      "import": "./dist/npm/esm/traces/histogram2dcontour.js",
+      "require": "./dist/npm/cjs/traces/histogram2dcontour/index.js"
+    },
+    "./traces/barpolar": {
+      "types": "./dist/npm/types/traces/barpolar/index.d.ts",
+      "import": "./dist/npm/esm/traces/barpolar.js",
+      "require": "./dist/npm/cjs/traces/barpolar/index.js"
+    },
+    "./traces/waterfall": {
+      "types": "./dist/npm/types/traces/waterfall/index.d.ts",
+      "import": "./dist/npm/esm/traces/waterfall.js",
+      "require": "./dist/npm/cjs/traces/waterfall/index.js"
+    },
+    "./traces/funnel": {
+      "types": "./dist/npm/types/traces/funnel/index.d.ts",
+      "import": "./dist/npm/esm/traces/funnel.js",
+      "require": "./dist/npm/cjs/traces/funnel/index.js"
+    },
+    "./traces/funnelarea": {
+      "types": "./dist/npm/types/traces/funnelarea/index.d.ts",
+      "import": "./dist/npm/esm/traces/funnelarea.js",
+      "require": "./dist/npm/cjs/traces/funnelarea/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

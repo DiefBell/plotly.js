@@ -47,11 +47,11 @@ module.exports = function calc(gd, trace) {
             }
         }
 
-        cdi = cd[i] = {
+        cdi = cd[i] = ({
             p: pos[i],
             s: size[i],
             cNext: connectToNext
-        };
+        } as any);
 
         trace._base[i] = -0.5 * cdi.s;
 

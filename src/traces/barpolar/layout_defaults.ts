@@ -7,7 +7,7 @@ module.exports = function(layoutIn, layoutOut, fullData) {
     var subplotsDone = {};
     var sp;
 
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(layoutIn[sp] || {}, layoutOut[sp], attrs, attr, dflt);
     }
 

@@ -54,7 +54,7 @@ module.exports = function calc(gd, trace) {
             }
         }
 
-        var cdi = cd[i] = {
+        var cdi: any = cd[i] = {
             i: i,
             p: pos[i],
             s: amount,

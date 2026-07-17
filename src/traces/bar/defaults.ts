@@ -15,7 +15,7 @@ var attributes = require('./attributes');
 var coerceFont = Lib.coerceFont;
 
 function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
@@ -65,7 +65,7 @@ function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
 function crossTraceDefaults(fullData, fullLayout) {
     var traceIn, traceOut;
 
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceOut._input, traceOut, attributes, attr, dflt);
     }
 

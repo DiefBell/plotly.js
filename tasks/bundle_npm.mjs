@@ -98,7 +98,15 @@ async function buildEsm() {
     const entryPoints = {
         index: constants.pathToPlotlyIndexEsm,
         core: constants.pathToPlotlyCore,
-        'traces/scatter': path.join(constants.pathToSrc, 'traces/scatter/index.ts')
+        'traces/scatter': path.join(constants.pathToSrc, 'traces/scatter/index.ts'),
+        'traces/bar': path.join(constants.pathToSrc, 'traces/bar/index.ts'),
+        'traces/histogram': path.join(constants.pathToSrc, 'traces/histogram/index.ts'),
+        'traces/histogram2d': path.join(constants.pathToSrc, 'traces/histogram2d/index.ts'),
+        'traces/histogram2dcontour': path.join(constants.pathToSrc, 'traces/histogram2dcontour/index.ts'),
+        'traces/barpolar': path.join(constants.pathToSrc, 'traces/barpolar/index.ts'),
+        'traces/waterfall': path.join(constants.pathToSrc, 'traces/waterfall/index.ts'),
+        'traces/funnel': path.join(constants.pathToSrc, 'traces/funnel/index.ts'),
+        'traces/funnelarea': path.join(constants.pathToSrc, 'traces/funnelarea/index.ts')
     };
 
     await build({

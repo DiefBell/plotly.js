@@ -26,7 +26,15 @@
         "src/registry.ts",
         "src/core.ts",
         "src/index.ts",
-        "src/traces/scatter/**/*.ts"
+        "src/traces/scatter/**/*.ts",
+        "src/traces/bar/**/*.ts",
+        "src/traces/histogram/**/*.ts",
+        "src/traces/histogram2d/**/*.ts",
+        "src/traces/histogram2dcontour/**/*.ts",
+        "src/traces/barpolar/**/*.ts",
+        "src/traces/waterfall/**/*.ts",
+        "src/traces/funnel/**/*.ts",
+        "src/traces/funnelarea/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

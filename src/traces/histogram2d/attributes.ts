@@ -10,6 +10,12 @@ var colorScaleAttrs = require('../../components/colorscale/attributes');
 
 var extendFlat = require('../../lib/extend').extendFlat;
 
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/calendars/index.js, which no longer carries a
+// `histogram2d` entry in its schema.traces (histogram2d isn't errorBarsOK,
+// so no errorbars composition needed)
+var calendarAttrs = require('../../components/calendars').xyAttrs;
+
 module.exports = extendFlat(
     {
         x: histogramAttrs.x,
@@ -73,7 +79,10 @@ module.exports = extendFlat(
         texttemplate: texttemplateAttrs({ arrayOk: false, editType: 'plot' }, { keys: ['z'] }),
         texttemplatefallback: templatefallbackAttrs({ editType: 'plot' }),
         textfont: heatmapAttrs.textfont,
-        showlegend: extendFlat({}, baseAttrs.showlegend, { dflt: false })
+        showlegend: extendFlat({}, baseAttrs.showlegend, { dflt: false }),
+
+        xcalendar: calendarAttrs.xcalendar,
+        ycalendar: calendarAttrs.ycalendar
     },
     colorScaleAttrs('', { cLetter: 'z', autoColorDflt: false })
 );

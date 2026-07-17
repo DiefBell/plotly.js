@@ -7,6 +7,12 @@ var axisHoverFormat = require('../../plots/cartesian/axis_format_attributes').ax
 
 var extendFlat = require('../../lib/extend').extendFlat;
 
+// composed directly instead of injected by the registry at trace-registration
+// time - see src/components/calendars/index.js, which no longer carries a
+// `histogram2dcontour` entry in its schema.traces (histogram2dcontour isn't
+// errorBarsOK, so no errorbars composition needed)
+var calendarAttrs = require('../../components/calendars').xyAttrs;
+
 module.exports = extendFlat(
     {
         x: histogram2dAttrs.x,
@@ -47,7 +53,10 @@ module.exports = extendFlat(
         hovertemplatefallback: histogram2dAttrs.hovertemplatefallback,
         texttemplate: contourAttrs.texttemplate,
         texttemplatefallback: contourAttrs.texttemplatefallback,
-        textfont: contourAttrs.textfont
+        textfont: contourAttrs.textfont,
+
+        xcalendar: calendarAttrs.xcalendar,
+        ycalendar: calendarAttrs.ycalendar
     },
     colorScaleAttrs('', {
         cLetter: 'z',

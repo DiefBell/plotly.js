@@ -38,7 +38,7 @@ function getKeyFunc(trace) {
 
 // Returns -1 if v < 0, 1 if v > 0, and 0 if v == 0
 function sign(v) {
-    return (v > 0) - (v < 0);
+    return Number(v > 0) - Number(v < 0);
 }
 
 // Returns 1 if a < b and -1 otherwise
@@ -204,7 +204,7 @@ function plot(gd, plotinfo, cdModule, traceLayer, opts, makeOnCompleteCallback) 
                 return opts.gap === 0 && opts.groupgap === 0 ? d3.round(Math.round(v) - offset, 2) : v;
             }
 
-            function expandToVisible(v, vc, hideZeroSpan) {
+            function expandToVisible(v, vc?, hideZeroSpan?) {
                 if (hideZeroSpan && v === vc) {
                     // should not expand zero span bars
                     // when start and end positions are identical
@@ -1031,7 +1031,7 @@ function calcTexttemplate(fullLayout, cd, index, xa, ya) {
     }
 
     var cdi = cd[index];
-    var obj = {};
+    var obj: any = {};
 
     obj.label = cdi.p;
     obj.labelLabel = obj[pLetter + 'Label'] = formatLabel(cdi.p);
@@ -1042,7 +1042,7 @@ function calcTexttemplate(fullLayout, cd, index, xa, ya) {
     obj.value = cdi.s;
     obj.valueLabel = obj[vLetter + 'Label'] = formatNumber(cdi.s);
 
-    var pt = {};
+    var pt: any = {};
     appendArrayPointValue(pt, trace, cdi.i);
 
     if (isHistogram || pt.x === undefined) pt.x = isHorizontal ? obj.value : obj.label;

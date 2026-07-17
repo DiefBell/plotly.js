@@ -7227,7 +7227,7 @@
           "calendar": {
             "description": "Sets the calendar system to use for `range` and `tick0` if this is a date axis. This does not set the calendar for interpreting data on this axis, that's specified in the trace or via the global `layout.calendar`",
             "dflt": "gregorian",
-            "editType": "calc",
+            "editType": "plot",
             "valType": "enumerated",
             "values": [
               "chinese",
@@ -7967,7 +7967,7 @@
           "calendar": {
             "description": "Sets the calendar system to use for `range` and `tick0` if this is a date axis. This does not set the calendar for interpreting data on this axis, that's specified in the trace or via the global `layout.calendar`",
             "dflt": "gregorian",
-            "editType": "calc",
+            "editType": "plot",
             "valType": "enumerated",
             "values": [
               "chinese",
@@ -8707,7 +8707,7 @@
           "calendar": {
             "description": "Sets the calendar system to use for `range` and `tick0` if this is a date axis. This does not set the calendar for interpreting data on this axis, that's specified in the trace or via the global `layout.calendar`",
             "dflt": "gregorian",
-            "editType": "calc",
+            "editType": "plot",
             "valType": "enumerated",
             "values": [
               "chinese",

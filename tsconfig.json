@@ -62,7 +62,10 @@
         "src/traces/scattercarpet/**/*.ts",
         "src/traces/contourcarpet/**/*.ts",
         "src/traces/heatmap/**/*.ts",
-        "src/traces/contour/**/*.ts"
+        "src/traces/contour/**/*.ts",
+        "src/traces/scattersmith/**/*.ts",
+        "src/traces/scatterternary/**/*.ts",
+        "src/traces/scatterpolar/**/*.ts"
     ],
     "exclude": ["node_modules", "dist", "build", "test", "lib"]
 }

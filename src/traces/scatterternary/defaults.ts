@@ -2,34 +2,60 @@
 
 var Lib = require('../../lib');
 
+var constants = require('../scatter/constants');
 var subTypes = require('../scatter/subtypes');
 var handleMarkerDefaults = require('../scatter/marker_defaults');
 var handleLineDefaults = require('../scatter/line_defaults');
 var handleLineShapeDefaults = require('../scatter/line_shape_defaults');
 var handleTextDefaults = require('../scatter/text_defaults');
 var handleFillColorDefaults = require('../scatter/fillcolor_defaults');
-var PTS_LINESONLY = require('../scatter/constants').PTS_LINESONLY;
 
 var attributes = require('./attributes');
 
 module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
-    var len = handleRealImagDefaults(traceIn, traceOut, layout, coerce);
+    var a = coerce('a');
+    var b = coerce('b');
+    var c = coerce('c');
+    var len;
+
+    // allow any one array to be missing, len is the minimum length of those
+    // present. Note that after coerce data_array's are either Arrays (which
+    // are truthy even if empty) or undefined. As in scatter, an empty array
+    // is different from undefined, because it can signify that this data is
+    // not known yet but expected in the future
+    if (a) {
+        len = a.length;
+        if (b) {
+            len = Math.min(len, b.length);
+            if (c) len = Math.min(len, c.length);
+        } else if (c) len = Math.min(len, c.length);
+        else len = 0;
+    } else if (b && c) {
+        len = Math.min(b.length, c.length);
+    }
+
     if (!len) {
         traceOut.visible = false;
         return;
     }
 
-    coerce('mode', len < PTS_LINESONLY ? 'lines+markers' : 'lines');
+    traceOut._length = len;
+
+    coerce('sum');
+
     coerce('text');
     coerce('hovertext');
     if (traceOut.hoveron !== 'fills') {
         coerce('hovertemplate');
         coerce('hovertemplatefallback');
     }
+
+    var defaultMode = len < constants.PTS_LINESONLY ? 'lines+markers' : 'lines';
+    coerce('mode', defaultMode);
 
     if (subTypes.hasMarkers(traceOut)) {
         handleMarkerDefaults(traceIn, traceOut, defaultColor, layout, coerce, { gradient: true });
@@ -56,7 +82,6 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     }
 
     coerce('fill');
-
     if (traceOut.fill !== 'none') {
         handleFillColorDefaults(traceIn, traceOut, defaultColor, coerce);
         if (!subTypes.hasLines(traceOut)) handleLineShapeDefaults(traceIn, traceOut, coerce);
@@ -69,24 +94,3 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
 
     Lib.coerceSelectionMarkerOpacity(traceOut, coerce);
 };
-
-function handleRealImagDefaults(traceIn, traceOut, layout, coerce) {
-    var real = coerce('real');
-    var imag = coerce('imag');
-    var len;
-
-    if (real && imag) {
-        len = Math.min(real.length, imag.length);
-    }
-
-    // TODO: handle this case outside supply defaults step
-    if (Lib.isTypedArray(real)) {
-        traceOut.real = real = Array.from(real);
-    }
-    if (Lib.isTypedArray(imag)) {
-        traceOut.imag = imag = Array.from(imag);
-    }
-
-    traceOut._length = len;
-    return len;
-}

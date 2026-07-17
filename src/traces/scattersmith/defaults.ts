@@ -12,18 +12,17 @@ var PTS_LINESONLY = require('../scatter/constants').PTS_LINESONLY;
 
 var attributes = require('./attributes');
 
-function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
-    var len = handleRThetaDefaults(traceIn, traceOut, layout, coerce);
+    var len = handleRealImagDefaults(traceIn, traceOut, layout, coerce);
     if (!len) {
         traceOut.visible = false;
         return;
     }
 
-    coerce('thetaunit');
     coerce('mode', len < PTS_LINESONLY ? 'lines+markers' : 'lines');
     coerce('text');
     coerce('hovertext');
@@ -69,42 +68,25 @@ function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
     coerce('hoveron', dfltHoverOn.join('+') || 'points');
 
     Lib.coerceSelectionMarkerOpacity(traceOut, coerce);
-}
+};
 
-function handleRThetaDefaults(traceIn, traceOut, layout, coerce) {
-    var r = coerce('r');
-    var theta = coerce('theta');
-
-    // TODO: handle this case outside supply defaults step
-    if (Lib.isTypedArray(r)) {
-        traceOut.r = r = Array.from(r);
-    }
-    if (Lib.isTypedArray(theta)) {
-        traceOut.theta = theta = Array.from(theta);
-    }
-
+function handleRealImagDefaults(traceIn, traceOut, layout, coerce) {
+    var real = coerce('real');
+    var imag = coerce('imag');
     var len;
 
-    if (r) {
-        if (theta) {
-            len = Math.min(r.length, theta.length);
-        } else {
-            len = r.length;
-            coerce('theta0');
-            coerce('dtheta');
-        }
-    } else {
-        if (!theta) return 0;
-        len = traceOut.theta.length;
-        coerce('r0');
-        coerce('dr');
+    if (real && imag) {
+        len = Math.min(real.length, imag.length);
+    }
+
+    // TODO: handle this case outside supply defaults step
+    if (Lib.isTypedArray(real)) {
+        traceOut.real = real = Array.from(real);
+    }
+    if (Lib.isTypedArray(imag)) {
+        traceOut.imag = imag = Array.from(imag);
     }
 
     traceOut._length = len;
     return len;
 }
-
-module.exports = {
-    handleRThetaDefaults: handleRThetaDefaults,
-    supplyDefaults: supplyDefaults
-};

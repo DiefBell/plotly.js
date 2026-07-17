@@ -4,7 +4,7 @@ var Lib = require('../../lib');
 var Axes = require('../../plots/cartesian/axes');
 
 module.exports = function formatLabels(cdi, trace, fullLayout) {
-    var labels = {};
+    var labels: any = {};
 
     var subplot = fullLayout[trace.subplot]._subplot;
     var radialAxis;

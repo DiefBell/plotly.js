@@ -209,6 +209,21 @@
       "import": "./dist/npm/esm/traces/contour.js",
       "require": "./dist/npm/cjs/traces/contour/index.js"
     },
+    "./traces/scattersmith": {
+      "types": "./dist/npm/types/traces/scattersmith/index.d.ts",
+      "import": "./dist/npm/esm/traces/scattersmith.js",
+      "require": "./dist/npm/cjs/traces/scattersmith/index.js"
+    },
+    "./traces/scatterternary": {
+      "types": "./dist/npm/types/traces/scatterternary/index.d.ts",
+      "import": "./dist/npm/esm/traces/scatterternary.js",
+      "require": "./dist/npm/cjs/traces/scatterternary/index.js"
+    },
+    "./traces/scatterpolar": {
+      "types": "./dist/npm/types/traces/scatterpolar/index.d.ts",
+      "import": "./dist/npm/esm/traces/scatterpolar.js",
+      "require": "./dist/npm/cjs/traces/scatterpolar/index.js"
+    },
     "./traces/*": "./dist/npm/cjs/traces/*/index.js",
     "./lib/*": "./lib/*.js",
     "./dist/*": "./dist/*",

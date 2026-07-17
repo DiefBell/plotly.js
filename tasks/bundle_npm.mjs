@@ -134,7 +134,10 @@ async function buildEsm() {
         'traces/scattercarpet': path.join(constants.pathToSrc, 'traces/scattercarpet/index.ts'),
         'traces/contourcarpet': path.join(constants.pathToSrc, 'traces/contourcarpet/index.ts'),
         'traces/heatmap': path.join(constants.pathToSrc, 'traces/heatmap/index.ts'),
-        'traces/contour': path.join(constants.pathToSrc, 'traces/contour/index.ts')
+        'traces/contour': path.join(constants.pathToSrc, 'traces/contour/index.ts'),
+        'traces/scattersmith': path.join(constants.pathToSrc, 'traces/scattersmith/index.ts'),
+        'traces/scatterternary': path.join(constants.pathToSrc, 'traces/scatterternary/index.ts'),
+        'traces/scatterpolar': path.join(constants.pathToSrc, 'traces/scatterpolar/index.ts')
     };
 
     await build({

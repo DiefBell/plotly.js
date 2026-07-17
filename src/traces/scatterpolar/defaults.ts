@@ -2,60 +2,35 @@
 
 var Lib = require('../../lib');
 
-var constants = require('../scatter/constants');
 var subTypes = require('../scatter/subtypes');
 var handleMarkerDefaults = require('../scatter/marker_defaults');
 var handleLineDefaults = require('../scatter/line_defaults');
 var handleLineShapeDefaults = require('../scatter/line_shape_defaults');
 var handleTextDefaults = require('../scatter/text_defaults');
 var handleFillColorDefaults = require('../scatter/fillcolor_defaults');
+var PTS_LINESONLY = require('../scatter/constants').PTS_LINESONLY;
 
 var attributes = require('./attributes');
 
-module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
-    function coerce(attr, dflt) {
+function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
+    function coerce(attr, dflt?) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
-    var a = coerce('a');
-    var b = coerce('b');
-    var c = coerce('c');
-    var len;
-
-    // allow any one array to be missing, len is the minimum length of those
-    // present. Note that after coerce data_array's are either Arrays (which
-    // are truthy even if empty) or undefined. As in scatter, an empty array
-    // is different from undefined, because it can signify that this data is
-    // not known yet but expected in the future
-    if (a) {
-        len = a.length;
-        if (b) {
-            len = Math.min(len, b.length);
-            if (c) len = Math.min(len, c.length);
-        } else if (c) len = Math.min(len, c.length);
-        else len = 0;
-    } else if (b && c) {
-        len = Math.min(b.length, c.length);
-    }
-
+    var len = handleRThetaDefaults(traceIn, traceOut, layout, coerce);
     if (!len) {
         traceOut.visible = false;
         return;
     }
 
-    traceOut._length = len;
-
-    coerce('sum');
-
+    coerce('thetaunit');
+    coerce('mode', len < PTS_LINESONLY ? 'lines+markers' : 'lines');
     coerce('text');
     coerce('hovertext');
     if (traceOut.hoveron !== 'fills') {
         coerce('hovertemplate');
         coerce('hovertemplatefallback');
     }
-
-    var defaultMode = len < constants.PTS_LINESONLY ? 'lines+markers' : 'lines';
-    coerce('mode', defaultMode);
 
     if (subTypes.hasMarkers(traceOut)) {
         handleMarkerDefaults(traceIn, traceOut, defaultColor, layout, coerce, { gradient: true });
@@ -82,6 +57,7 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     }
 
     coerce('fill');
+
     if (traceOut.fill !== 'none') {
         handleFillColorDefaults(traceIn, traceOut, defaultColor, coerce);
         if (!subTypes.hasLines(traceOut)) handleLineShapeDefaults(traceIn, traceOut, coerce);
@@ -93,4 +69,42 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     coerce('hoveron', dfltHoverOn.join('+') || 'points');
 
     Lib.coerceSelectionMarkerOpacity(traceOut, coerce);
+}
+
+function handleRThetaDefaults(traceIn, traceOut, layout, coerce) {
+    var r = coerce('r');
+    var theta = coerce('theta');
+
+    // TODO: handle this case outside supply defaults step
+    if (Lib.isTypedArray(r)) {
+        traceOut.r = r = Array.from(r);
+    }
+    if (Lib.isTypedArray(theta)) {
+        traceOut.theta = theta = Array.from(theta);
+    }
+
+    var len;
+
+    if (r) {
+        if (theta) {
+            len = Math.min(r.length, theta.length);
+        } else {
+            len = r.length;
+            coerce('theta0');
+            coerce('dtheta');
+        }
+    } else {
+        if (!theta) return 0;
+        len = traceOut.theta.length;
+        coerce('r0');
+        coerce('dr');
+    }
+
+    traceOut._length = len;
+    return len;
+}
+
+module.exports = {
+    handleRThetaDefaults: handleRThetaDefaults,
+    supplyDefaults: supplyDefaults
 };

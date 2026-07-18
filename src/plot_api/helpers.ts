@@ -8,6 +8,8 @@ var Plots = require('../plots/plots');
 var AxisIds = require('../plots/cartesian/axis_ids');
 var Color = require('../components/color');
 
+import {GraphDiv, Data, Layout} from '../types';
+
 var cleanId = AxisIds.cleanId;
 var getFromTrace = AxisIds.getFromTrace;
 var traceIs = Registry.traceIs;
@@ -15,7 +17,7 @@ var traceIs = Registry.traceIs;
 const AX_LETTERS = ['x', 'y', 'z'];
 
 // clear the promise queue if one of them got rejected
-exports.clearPromiseQueue = function (gd) {
+exports.clearPromiseQueue = function (gd: GraphDiv) {
     if (Array.isArray(gd._promises) && gd._promises.length > 0) {
         Lib.log('Clearing previous rejected promises from queue.');
     }
@@ -26,7 +28,7 @@ exports.clearPromiseQueue = function (gd) {
 // make a few changes to the layout right away
 // before it gets used for anything
 // backward compatibility and cleanup of nonstandard options
-exports.cleanLayout = function (layout) {
+exports.cleanLayout = function (layout?: Partial<Layout> | null): Layout {
     var i, j;
 
     if (!layout) layout = {};
@@ -171,7 +173,7 @@ function cleanAxRef(container, attr, isShape = false) {
  * Important: if you're going to add something here that modifies a data array,
  * update it in place so the new array === the old one.
  */
-exports.cleanData = function (data) {
+exports.cleanData = function (data: Data[]) {
     for (var tracei = 0; tracei < data.length; tracei++) {
         var trace = data[tracei];
         var i;
@@ -268,7 +270,7 @@ exports.cleanData = function (data) {
                 if (newName) trace.name = newName;
             } else if ((increasingName || decreasingName) && !trace.name) {
                 // one sub-name existed but not the base name - just use the sub-name
-                trace.name = increasingName || decreasingName;
+                trace.name = (increasingName || decreasingName) as string;
             }
         }
 
@@ -352,7 +354,7 @@ function emptyContainer(outer, innerStr) {
 }
 
 // swap all the data and data attributes associated with x and y
-exports.swapXYData = function (trace) {
+exports.swapXYData = function (trace: Data) {
     var i;
     Lib.swapAttrs(trace, ['?', '?0', 'd?', '?bins', 'nbins?', 'autobin?', '?src', 'error_?']);
     if (Array.isArray(trace.z) && Array.isArray(trace.z[0])) {
@@ -379,9 +381,9 @@ exports.swapXYData = function (trace) {
 };
 
 // coerce traceIndices input to array of trace indices
-exports.coerceTraceIndices = function (gd, traceIndices) {
+exports.coerceTraceIndices = function (gd: GraphDiv, traceIndices: number | number[]): number[] {
     if (isNumeric(traceIndices)) {
-        return [traceIndices];
+        return [traceIndices as number];
     } else if (!Array.isArray(traceIndices) || !traceIndices.length) {
         return gd.data.map(function (_, i) {
             return i;
@@ -413,7 +415,7 @@ exports.coerceTraceIndices = function (gd, traceIndices) {
  *  undo hash (N.B. undoit may be mutated here).
  *
  */
-exports.manageArrayContainers = function (np, newVal, undoit) {
+exports.manageArrayContainers = function (np: any, newVal: any, undoit: Record<string, any>) {
     var obj = np.obj;
     var parts = np.parts;
     var pLength = parts.length;
@@ -471,7 +473,7 @@ function getParent(attr) {
  * @returns {Boolean}
  *  is a parent of attr present in aobj?
  */
-exports.hasParent = function (aobj, attr) {
+exports.hasParent = function (aobj: Record<string, any>, attr: string): boolean {
     var attrParent = getParent(attr);
     while (attrParent) {
         if (attrParent in aobj) return true;
@@ -488,7 +490,7 @@ exports.hasParent = function (aobj, attr) {
  * @param {object} layoutUpdate: any update being done concurrently to the layout,
  *   which may supercede clearing the axis types
  */
-exports.clearAxisTypes = function (gd, traces, layoutUpdate) {
+exports.clearAxisTypes = function (gd: GraphDiv, traces: number[], layoutUpdate: Record<string, any>) {
     for (var i = 0; i < traces.length; i++) {
         var trace = gd._fullData[i];
         for (var j = 0; j < 3; j++) {
@@ -518,7 +520,7 @@ exports.clearAxisTypes = function (gd, traces, layoutUpdate) {
  * @param {Object|Array} collection1: First collection to compare
  * @param {Object|Array} collection2: Second collection to compare
  */
-const collectionsAreEqual = (collection1, collection2) => {
+const collectionsAreEqual = (collection1: any, collection2: any): boolean => {
     const isArrayOrObject = (...vals) => vals.every((v) => Lib.isPlainObject(v)) || vals.every((v) => Array.isArray(v));
     if ([collection1, collection2].every((a) => Array.isArray(a))) {
         if (collection1.length !== collection2.length) return false;

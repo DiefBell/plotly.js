@@ -46,7 +46,7 @@ templateAttrs[TEMPLATEITEMNAME] = {
  *
  * @returns {object}: the decorated `attrs` object
  */
-exports.templatedArray = function(name, attrs) {
+exports.templatedArray = function(name: string, attrs: Record<string, any>): Record<string, any> {
     attrs._isLinkedToArray = name;
     attrs.name = templateAttrs.name;
     attrs[TEMPLATEITEMNAME] = templateAttrs[TEMPLATEITEMNAME];
@@ -65,8 +65,8 @@ exports.templatedArray = function(name, attrs) {
  *         uses that type to find the next template to apply. returns the output
  *         traceOut with template attached, ready to continue supplyDefaults.
  */
-exports.traceTemplater = function(dataTemplate) {
-    var traceCounts = {};
+exports.traceTemplater = function(dataTemplate: Record<string, any[]>): {newTrace: (traceIn: Record<string, any>) => {type: string, _template: any}} {
+    var traceCounts: Record<string, number> = {};
     var traceType, typeTemplates;
 
     for(traceType in dataTemplate) {
@@ -76,7 +76,7 @@ exports.traceTemplater = function(dataTemplate) {
         }
     }
 
-    function newTrace(traceIn) {
+    function newTrace(traceIn: Record<string, any>) {
         traceType = Lib.coerce(traceIn, {}, plotAttributes, 'type');
         var traceOut = {type: traceType, _template: null};
         if(traceType in traceCounts) {
@@ -119,7 +119,7 @@ exports.traceTemplater = function(dataTemplate) {
  * @returns {object}: an object for inclusion _full*, empty except for the
  *     appropriate template piece
  */
-exports.newContainer = function(container, name, baseName) {
+exports.newContainer = function(container: Record<string, any>, name: string, baseName?: string): Record<string, any> {
     var template = container._template;
     var part = template && (template[name] || (baseName && template[baseName]));
     if(!Lib.isPlainObject(part)) part = null;
@@ -147,7 +147,7 @@ exports.newContainer = function(container, name, baseName) {
  *         specific template items that have not already beeen included,
  *         also as bare output items ready for supplyDefaults.
  */
-exports.arrayTemplater = function(container, name, inclusionAttr) {
+exports.arrayTemplater = function(container: Record<string, any>, name: string, inclusionAttr: string): {newItem: (itemIn: Record<string, any>) => Record<string, any>, defaultItems: () => Record<string, any>[]} {
     var template = container._template;
     var defaultsTemplate = template && template[arrayDefaultKey(name)];
     var templateItems = template && template[name];
@@ -155,15 +155,15 @@ exports.arrayTemplater = function(container, name, inclusionAttr) {
         templateItems = [];
     }
 
-    var usedNames = {};
+    var usedNames: Record<string, number> = {};
 
-    function newItem(itemIn) {
+    function newItem(itemIn: Record<string, any>) {
         // include name and templateitemname in the output object for ALL
         // container array items. Note: you could potentially use different
         // name and templateitemname, if you're using one template to make
         // another template. templateitemname would be the name in the original
         // template, and name is the new "subclassed" item name.
-        var out = {name: itemIn.name, _input: itemIn};
+        var out: Record<string, any> = {name: itemIn.name, _input: itemIn};
         var templateItemName = out[TEMPLATEITEMNAME] = itemIn[TEMPLATEITEMNAME];
 
         // no itemname: use the default template
@@ -223,11 +223,11 @@ exports.arrayTemplater = function(container, name, inclusionAttr) {
     };
 };
 
-function validItemName(name) {
+function validItemName(name: any): boolean {
     return name && typeof name === 'string';
 }
 
-function arrayDefaultKey(name) {
+function arrayDefaultKey(name: string): string {
     var lastChar = name.length - 1;
     if(name.charAt(lastChar) !== 's') {
         Lib.warn('bad argument to arrayDefaultKey: ' + name);
@@ -258,7 +258,12 @@ exports.arrayDefaultKey = arrayDefaultKey;
  *         then apply it to `parent` which should be the parent of `containerIn`,
  *         ie the object to which `containerStr` is the attribute string.
  */
-exports.arrayEditor = function(parentIn, containerStr, itemOut) {
+exports.arrayEditor = function(parentIn: Record<string, any>, containerStr: string, itemOut: Record<string, any>): {
+    modifyBase: (attr: string, value: any) => void,
+    modifyItem: (attr: string, value: any) => void,
+    getUpdateObj: () => Record<string, any>,
+    applyUpdate: (attr: string, value: any) => void
+} {
     var lengthIn = (Lib.nestedProperty(parentIn, containerStr).get() || []).length;
     var index = itemOut._index;
     // Check that we are indeed off the end of this container.
@@ -268,7 +273,7 @@ exports.arrayEditor = function(parentIn, containerStr, itemOut) {
     if(templateItemName) index = lengthIn;
     var itemStr = containerStr + '[' + index + ']';
 
-    var update;
+    var update: Record<string, any>;
     function resetUpdate() {
         update = {};
         if(templateItemName) {
@@ -278,11 +283,11 @@ exports.arrayEditor = function(parentIn, containerStr, itemOut) {
     }
     resetUpdate();
 
-    function modifyBase(attr, value) {
+    function modifyBase(attr: string, value: any) {
         update[attr] = value;
     }
 
-    function modifyItem(attr, value) {
+    function modifyItem(attr: string, value: any) {
         if(templateItemName) {
             // we're making a new object: edit that object
             Lib.nestedProperty(update[itemStr], attr).set(value);
@@ -298,7 +303,7 @@ exports.arrayEditor = function(parentIn, containerStr, itemOut) {
         return updateOut;
     }
 
-    function applyUpdate(attr, value) {
+    function applyUpdate(attr: string, value: any) {
         if(attr) modifyItem(attr, value);
         var updateToApply = getUpdateObj();
         for(var key in updateToApply) {

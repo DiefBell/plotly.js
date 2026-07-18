@@ -128,5 +128,17 @@
       "lineEnding": "lf",
       "lineWidth": 80
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": ["**/src/plot_api/**", "**/src/types/**"],
+      "linter": {
+        "rules": {
+          "suspicious": {
+            "noExplicitAny": "warn"
+          }
+        }
+      }
+    }
+  ]
 }

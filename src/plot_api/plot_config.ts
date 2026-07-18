@@ -1,5 +1,7 @@
 'use strict';
 
+import {Config} from '../types';
+
 /**
  * This will be transferred over to gd and overridden by
  * config args to Plotly.newPlot.
@@ -461,9 +463,9 @@ var configAttributes = {
     }
 };
 
-var dfltConfig = {};
+var dfltConfig: Config = {};
 
-function crawl(src, target) {
+function crawl(src: Record<string, any>, target: Record<string, any>) {
     for(var k in src) {
         var obj = src[k];
         if(obj.valType) {

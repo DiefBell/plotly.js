@@ -20,13 +20,15 @@ var enforceAxisConstraints = axisConstraints.enforce;
 var cleanAxisConstraints = axisConstraints.clean;
 var doAutoRange = require('../plots/cartesian/autorange').doAutoRange;
 
+import {GraphDiv} from '../types';
+
 var SVG_TEXT_ANCHOR_START = 'start';
 var SVG_TEXT_ANCHOR_MIDDLE = 'middle';
 var SVG_TEXT_ANCHOR_END = 'end';
 
 var zindexSeparator = require('../plots/cartesian/constants').zindexSeparator;
 
-exports.layoutStyles = function(gd) {
+exports.layoutStyles = function(gd: GraphDiv) {
     return Lib.syncOrAsync([Plots.doAutoMargin, lsInner], gd);
 };
 
@@ -45,7 +47,7 @@ function overlappingDomain(xDomain, yDomain, domains) {
     return false;
 }
 
-function lsInner(gd) {
+function lsInner(gd: GraphDiv) {
     var fullLayout = gd._fullLayout;
     var gs = fullLayout._size;
     var pad = gs.p;
@@ -405,7 +407,7 @@ function findCounterAxisLineWidth(ax, side, counterAx, axList) {
     return 0;
 }
 
-exports.drawMainTitle = function(gd) {
+exports.drawMainTitle = function(gd: GraphDiv) {
     var title = gd._fullLayout.title;
     var fullLayout = gd._fullLayout;
     var textAnchor = getMainTitleTextAnchor(fullLayout);
@@ -473,7 +475,7 @@ exports.drawMainTitle = function(gd) {
 };
 
 
-function isOutsideContainer(gd, title, position, y, titleHeight) {
+function isOutsideContainer(gd: GraphDiv, title: any, position: string, y: number, titleHeight: number) {
     var plotHeight = title.yref === 'paper' ? gd._fullLayout._size.h : gd._fullLayout.height;
     var yPosTop = Lib.isTopAnchor(title) ? y : y - titleHeight; // Standardize to the top of the title
     var yPosRel = position === 'b' ? plotHeight - yPosTop : yPosTop; // Position relative to the top or bottom of plot
@@ -503,7 +505,7 @@ function containerPushVal(position, titleY, titleYanchor, height, titleDepth) {
     return push;
 }
 
-function needsMarginPush(gd, title, titleHeight) {
+function needsMarginPush(gd: GraphDiv, title: any, titleHeight: number) {
     var titleY = title.y;
     var titleYanchor = title.yanchor;
     var position = titleY > 0.5 ? 't' : 'b';
@@ -528,7 +530,7 @@ function needsMarginPush(gd, title, titleHeight) {
     return 0;
 }
 
-function applyTitleAutoMargin(gd, y, pushMargin, titleHeight) {
+function applyTitleAutoMargin(gd: GraphDiv, y: number, pushMargin: number, titleHeight: number) {
     var titleID = 'title.automargin';
     var title = gd._fullLayout.title;
     var position = title.y > 0.5 ? 't' : 'b';
@@ -629,7 +631,7 @@ function getMainTitleDy(fullLayout) {
     return dy;
 }
 
-exports.doTraceStyle = function(gd) {
+exports.doTraceStyle = function(gd: GraphDiv) {
     var calcdata = gd.calcdata;
     var editStyleCalls = [];
     var i;
@@ -666,24 +668,24 @@ exports.doTraceStyle = function(gd) {
     return Plots.previousPromises(gd);
 };
 
-exports.doColorBars = function(gd) {
+exports.doColorBars = function(gd: GraphDiv) {
     Registry.getComponentMethod('colorbar', 'draw')(gd);
     return Plots.previousPromises(gd);
 };
 
 // force plot() to redo the layout and replot with the modified layout
-exports.layoutReplot = function(gd) {
+exports.layoutReplot = function(gd: GraphDiv) {
     var layout = gd.layout;
     gd.layout = undefined;
     return Registry.call('_doPlot', gd, '', layout);
 };
 
-exports.doLegend = function(gd) {
+exports.doLegend = function(gd: GraphDiv) {
     Registry.getComponentMethod('legend', 'draw')(gd);
     return Plots.previousPromises(gd);
 };
 
-exports.doTicksRelayout = function(gd) {
+exports.doTicksRelayout = function(gd: GraphDiv) {
     Axes.draw(gd, 'redraw');
 
     if(gd._fullLayout._hasOnlyLargeSploms) {
@@ -696,7 +698,7 @@ exports.doTicksRelayout = function(gd) {
     return Plots.previousPromises(gd);
 };
 
-exports.doModeBar = function(gd) {
+exports.doModeBar = function(gd: GraphDiv) {
     var fullLayout = gd._fullLayout;
 
     ModeBar.manage(gd);
@@ -709,7 +711,7 @@ exports.doModeBar = function(gd) {
     return Plots.previousPromises(gd);
 };
 
-exports.doCamera = function(gd) {
+exports.doCamera = function(gd: GraphDiv) {
     var fullLayout = gd._fullLayout;
     var sceneIds = fullLayout._subplots.gl3d;
 
@@ -721,7 +723,7 @@ exports.doCamera = function(gd) {
     }
 };
 
-exports.drawData = function(gd) {
+exports.drawData = function(gd: GraphDiv) {
     var fullLayout = gd._fullLayout;
 
     clearGlCanvases(gd);
@@ -763,7 +765,7 @@ exports.drawData = function(gd) {
 //
 // TODO try to include parcoords in here.
 // https://github.com/plotly/plotly.js/issues/3069
-exports.redrawReglTraces = function(gd) {
+exports.redrawReglTraces = function(gd: GraphDiv) {
     var fullLayout = gd._fullLayout;
 
     if(fullLayout._has('regl')) {
@@ -806,7 +808,7 @@ exports.redrawReglTraces = function(gd) {
     }
 };
 
-exports.doAutoRangeAndConstraints = function(gd) {
+exports.doAutoRangeAndConstraints = function(gd: GraphDiv) {
     var axList = Axes.list(gd, '', true);
     var ax;
 
@@ -841,7 +843,7 @@ exports.doAutoRangeAndConstraints = function(gd) {
 // An initial paint must be completed before these components can be
 // correctly sized and the whole plot re-margined. fullLayout._replotting must
 // be set to false before these will work properly.
-exports.finalDraw = function(gd) {
+exports.finalDraw = function(gd: GraphDiv) {
     // TODO: rangesliders really belong in marginPushers but they need to be
     // drawn after data - can we at least get the margin pushing part separated
     // out and done earlier?
@@ -853,7 +855,7 @@ exports.finalDraw = function(gd) {
     Registry.getComponentMethod('rangeselector', 'draw')(gd);
 };
 
-exports.drawMarginPushers = function(gd) {
+exports.drawMarginPushers = function(gd: GraphDiv) {
     Registry.getComponentMethod('legend', 'draw')(gd);
     Registry.getComponentMethod('rangeselector', 'draw')(gd);
     Registry.getComponentMethod('sliders', 'draw')(gd);

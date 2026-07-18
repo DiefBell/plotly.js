@@ -3,6 +3,11 @@
 var extendFlat = require('../lib/extend').extendFlat;
 var isPlainObject = require('../lib/is_plain_object');
 
+// attribute-schema objects (valType/dflt/editType/description/...) - the full
+// recursive schema DSL isn't typed here, see src/plot_api/plot_schema.ts
+type AttributeSchema = Record<string, any>;
+type EditFlags = Record<string, boolean>;
+
 var traceOpts = {
     valType: 'flaglist',
     extras: ['none'],
@@ -61,18 +66,18 @@ module.exports = {
      * default (all false) edit flags for restyle (traces)
      * creates a new object each call, so the caller can mutate freely
      */
-    traceFlags: function() { return falseObj(traceEditTypeFlags); },
+    traceFlags: function(): EditFlags { return falseObj(traceEditTypeFlags); },
 
     /*
      * default (all false) edit flags for relayout
      * creates a new object each call, so the caller can mutate freely
      */
-    layoutFlags: function() { return falseObj(layoutEditTypeFlags); },
+    layoutFlags: function(): EditFlags { return falseObj(layoutEditTypeFlags); },
 
     /*
      * update `flags` with the `editType` values found in `attr`
      */
-    update: function(flags, attr) {
+    update: function(flags: EditFlags, attr: AttributeSchema) {
         var editType = attr.editType;
         if(editType && editType !== 'none') {
             var editTypeParts = editType.split('+');
@@ -85,8 +90,8 @@ module.exports = {
     overrideAll: overrideAll
 };
 
-function falseObj(keys) {
-    var out = {};
+function falseObj(keys: string[]): EditFlags {
+    var out: EditFlags = {};
     for(var i = 0; i < keys.length; i++) out[keys[i]] = false;
     return out;
 }
@@ -106,7 +111,7 @@ function falseObj(keys) {
  *
  * @return {object} a new attributes object with `editType` modified as directed
  */
-function overrideAll(attrs, editTypeOverride, overrideContainers) {
+function overrideAll(attrs: AttributeSchema, editTypeOverride: string, overrideContainers: 'nested' | 'from-root'): AttributeSchema {
     var out = extendFlat({}, attrs);
     for(var key in out) {
         var attr = out[key];
@@ -119,7 +124,7 @@ function overrideAll(attrs, editTypeOverride, overrideContainers) {
     return out;
 }
 
-function overrideOne(attr, editTypeOverride, overrideContainers, key) {
+function overrideOne(attr: AttributeSchema, editTypeOverride: string, overrideContainers: 'nested' | 'from-root', key?: string): AttributeSchema {
     if(attr.valType) {
         var out = extendFlat({}, attr);
         out.editType = editTypeOverride;

@@ -2,6 +2,12 @@
 
 var Registry = require('../registry');
 
+interface ContainerArrayMatch {
+    array: string;
+    index: number | '';
+    property: string;
+}
+
 /*
  * containerArrayMatch: does this attribute string point into a
  * layout container array?
@@ -15,7 +21,7 @@ var Registry = require('../registry');
  *  if the whole array) and the property within that (or '' if the whole array
  *  or the whole object)
  */
-module.exports = function containerArrayMatch(astr) {
+module.exports = function containerArrayMatch(astr: string): ContainerArrayMatch | false {
     var rootContainers = Registry.layoutArrayContainers;
     var regexpContainers = Registry.layoutArrayRegexes;
     var rootPart = astr.split('[')[0];

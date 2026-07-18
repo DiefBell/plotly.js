@@ -8,6 +8,8 @@ var plotAttributes = require('../plots/attributes');
 var Template = require('./plot_template');
 var dfltConfig = require('./plot_config').dfltConfig;
 
+type Schema = Record<string, any>;
+
 /**
  * Plotly.makeTemplate: create a template off an existing figure to reuse
  * style attributes on other figures.
@@ -21,7 +23,7 @@ var dfltConfig = require('./plot_config').dfltConfig;
  * @returns {object} template: the extracted template - can then be used as
  *     `layout.template` in another figure.
  */
-exports.makeTemplate = function(figure) {
+exports.makeTemplate = function(figure: any): Schema {
     figure = Lib.isPlainObject(figure) ? figure : Lib.getGraphDiv(figure);
     figure = Lib.extendDeep({_context: dfltConfig}, {data: figure.data, layout: figure.layout});
     Plots.supplyDefaults(figure);
@@ -31,7 +33,7 @@ exports.makeTemplate = function(figure) {
     layout._basePlotModules = figure._fullLayout._basePlotModules;
     layout._modules = figure._fullLayout._modules;
 
-    var template = {
+    var template: Schema = {
         data: {},
         layout: {}
     };
@@ -111,7 +113,7 @@ exports.makeTemplate = function(figure) {
     return template;
 };
 
-function mergeTemplates(oldTemplate, newTemplate) {
+function mergeTemplates(oldTemplate: Schema, newTemplate: Schema) {
     // we don't care about speed here, just make sure we have a totally
     // distinct object from the previous template
     oldTemplate = Lib.extendDeep({}, oldTemplate);
@@ -121,7 +123,7 @@ function mergeTemplates(oldTemplate, newTemplate) {
     var oldKeys = Object.keys(oldTemplate).sort();
     var i, j;
 
-    function mergeOne(oldVal, newVal, key) {
+    function mergeOne(oldVal: any, newVal: any, key: string) {
         if(isPlainObject(newVal) && isPlainObject(oldVal)) {
             mergeTemplates(oldVal, newVal);
         } else if(Array.isArray(newVal) && Array.isArray(oldVal)) {
@@ -161,11 +163,11 @@ function mergeTemplates(oldTemplate, newTemplate) {
     }
 }
 
-function getBaseKey(key) {
+function getBaseKey(key: string): string {
     return key.replace(/[0-9]+$/, '');
 }
 
-function walkStyleKeys(parent, templateOut, getAttributeInfo, path, basePath) {
+function walkStyleKeys(parent: Schema, templateOut: Schema, getAttributeInfo: (path?: string) => Schema | false, path?: string, basePath?: string) {
     var pathAttr = basePath && getAttributeInfo(basePath);
     for(var key in parent) {
         var child = parent[key];
@@ -236,19 +238,19 @@ function walkStyleKeys(parent, templateOut, getAttributeInfo, path, basePath) {
     }
 }
 
-function getLayoutInfo(layout, path) {
+function getLayoutInfo(layout: Schema, path?: string): Schema | false {
     return PlotSchema.getLayoutValObject(
         layout, Lib.nestedProperty({}, path).parts
     );
 }
 
-function getTraceInfo(trace, path) {
+function getTraceInfo(trace: Schema, path?: string): Schema | false {
     return PlotSchema.getTraceValObject(
         trace, Lib.nestedProperty({}, path).parts
     );
 }
 
-function getNextPath(parent, key, path) {
+function getNextPath(parent: any, key: string | number, path?: string): string {
     var nextPath;
     if(!path) nextPath = key;
     else if(Array.isArray(parent)) nextPath = path + '[' + key + ']';
@@ -275,7 +277,7 @@ function getNextPath(parent, key, path) {
  *  - {string} msg
  *      a full readable description of the issue.
  */
-exports.validateTemplate = function(figureIn, template) {
+exports.validateTemplate = function(figureIn: any, template?: Schema): Schema[] | undefined {
     var figure = Lib.extendDeep({}, {
         _context: dfltConfig,
         data: figureIn.data,
@@ -285,7 +287,7 @@ exports.validateTemplate = function(figureIn, template) {
     if(!isPlainObject(template)) template = layout.template || {};
     var layoutTemplate = template.layout;
     var dataTemplate = template.data;
-    var errorList = [];
+    var errorList: Schema[] = [];
 
     figure.layout = layout;
     figure.layout.template = template;
@@ -294,8 +296,8 @@ exports.validateTemplate = function(figureIn, template) {
     var fullLayout = figure._fullLayout;
     var fullData = figure._fullData;
 
-    var layoutPaths = {};
-    function crawlLayoutForContainers(obj, paths) {
+    var layoutPaths: Record<string, number> = {};
+    function crawlLayoutForContainers(obj: Schema, paths: string[]) {
         for(var key in obj) {
             if(key.charAt(0) !== '_' && isPlainObject(obj[key])) {
                 var baseKey = getBaseKey(key);
@@ -313,7 +315,7 @@ exports.validateTemplate = function(figureIn, template) {
         }
     }
 
-    function crawlLayoutTemplateForContainers(obj, path) {
+    function crawlLayoutTemplateForContainers(obj: Schema, path: string) {
         for(var key in obj) {
             if(key.indexOf('defaults') === -1 && isPlainObject(obj[key])) {
                 var nextPath = getNextPath(obj, key, path);
@@ -375,7 +377,7 @@ exports.validateTemplate = function(figureIn, template) {
 
     // _template: false is when someone tried to modify an array item
     // but there was no template with matching name
-    function crawlForMissingTemplates(obj, path) {
+    function crawlForMissingTemplates(obj: Schema, path: string) {
         for(var key in obj) {
             if(key.charAt(0) === '_') continue;
             var val = obj[key];
@@ -399,13 +401,14 @@ exports.validateTemplate = function(figureIn, template) {
     if(errorList.length) return errorList.map(format);
 };
 
-function hasPlainObject(arr) {
+function hasPlainObject(arr: any[]): boolean {
     for(var i = 0; i < arr.length; i++) {
         if(isPlainObject(arr[i])) return true;
     }
+    return false;
 }
 
-function format(opts) {
+function format(opts: Schema): Schema {
     var msg;
     switch(opts.code) {
         case 'data':

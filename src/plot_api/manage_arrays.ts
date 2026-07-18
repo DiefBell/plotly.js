@@ -6,14 +6,15 @@ var Loggers = require('../lib/loggers');
 var sorterAsc = require('../lib/search').sorterAsc;
 var Registry = require('../registry');
 
+import {GraphDiv} from '../types';
 
 exports.containerArrayMatch = require('./container_array_match');
 
-var isAddVal = exports.isAddVal = function isAddVal(val) {
+var isAddVal = exports.isAddVal = function isAddVal(val: any): boolean {
     return val === 'add' || isPlainObject(val);
 };
 
-var isRemoveVal = exports.isRemoveVal = function isRemoveVal(val) {
+var isRemoveVal = exports.isRemoveVal = function isRemoveVal(val: any): boolean {
     return val === null || val === 'remove';
 };
 
@@ -64,7 +65,7 @@ var isRemoveVal = exports.isRemoveVal = function isRemoveVal(val) {
  * @returns {bool} `true` if it managed to complete drawing of the changes
  *  `false` would mean the parent should replot.
  */
-exports.applyContainerArrayChanges = function applyContainerArrayChanges(gd, np, edits, flags, _nestedProperty) {
+exports.applyContainerArrayChanges = function applyContainerArrayChanges(gd: GraphDiv, np: any, edits: Record<string, any>, flags: Record<string, any>, _nestedProperty: any): boolean {
     var componentType = np.astr;
     var supplyComponentDefaults = Registry.getComponentMethod(componentType, 'supplyLayoutDefaults');
     var draw = Registry.getComponentMethod(componentType, 'draw');

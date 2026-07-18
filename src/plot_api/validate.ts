@@ -9,6 +9,10 @@ var isPlainObject = Lib.isPlainObject;
 var isArray = Array.isArray;
 var isArrayOrTypedArray = Lib.isArrayOrTypedArray;
 
+import {Data, Layout, ValidationError} from '../types';
+
+type Schema = Record<string, any>;
+
 /**
  * Validate a data array and layout object.
  *
@@ -30,13 +34,13 @@ var isArrayOrTypedArray = Lib.isArrayOrTypedArray;
  *  - {string} msg
  *      error message (shown in console in logger config argument is enable)
  */
-module.exports = function validate(data, layout) {
+module.exports = function validate(data?: Data[], layout?: Partial<Layout>): ValidationError[] | undefined {
     if(data === undefined) data = [];
     if(layout === undefined) layout = {};
 
     var schema = PlotSchema.get();
-    var errorList = [];
-    var gd = {_context: Lib.extendFlat({}, dfltConfig)};
+    var errorList: ValidationError[] = [];
+    var gd: any = {_context: Lib.extendFlat({}, dfltConfig)};
 
     var dataIn, layoutIn;
 
@@ -71,7 +75,7 @@ module.exports = function validate(data, layout) {
 
     for(var i = 0; i < len; i++) {
         var traceIn = dataIn[i];
-        var base = ['data', i];
+        var base: [string, number] = ['data', i];
 
         if(!isPlainObject(traceIn)) {
             errorList.push(format('object', base));
@@ -105,7 +109,14 @@ module.exports = function validate(data, layout) {
     return (errorList.length === 0) ? void(0) : errorList;
 };
 
-function crawl(objIn, objOut, schema, list, base, path) {
+function crawl(
+    objIn: Record<string, any>,
+    objOut: Record<string, any>,
+    schema: Schema,
+    list: ValidationError[],
+    base: string | [string, number],
+    path?: (string | number)[]
+): ValidationError[] {
     path = path || [];
 
     var keys = Object.keys(objIn);
@@ -228,7 +239,7 @@ function crawl(objIn, objOut, schema, list, base, path) {
 }
 
 // the 'full' layout schema depends on the traces types presents
-function fillLayoutSchema(schema, dataOut) {
+function fillLayoutSchema(schema: Schema, dataOut: Record<string, any>[]): Schema {
     var layoutSchema = schema.layout.layoutAttributes;
 
     for(var i = 0; i < dataOut.length; i++) {
@@ -249,7 +260,7 @@ function fillLayoutSchema(schema, dataOut) {
 }
 
 // validation error codes
-var code2msgFunc = {
+var code2msgFunc: Record<string, (base: any, astr: string, valIn?: any, valOut?: any) => string> = {
     object: function(base, astr) {
         var prefix;
 
@@ -299,13 +310,13 @@ var code2msgFunc = {
     }
 };
 
-function inBase(base) {
+function inBase(base: string | [string, number]): string {
     if(isArray(base)) return 'In data trace ' + base[1] + ', ';
 
     return 'In ' + base + ', ';
 }
 
-function format(code, base, path, valIn, valOut) {
+function format(code: string, base: string | [string, number], path?: (string | number)[] | string, valIn?: any, valOut?: any): ValidationError {
     path = path || '';
 
     var container, trace;
@@ -337,29 +348,29 @@ function format(code, base, path, valIn, valOut) {
     };
 }
 
-function isInSchema(schema, key) {
+function isInSchema(schema: Schema, key: string): boolean {
     var parts = splitKey(key);
     var keyMinusId = parts.keyMinusId;
     var id = parts.id;
 
-    if((keyMinusId in schema) && schema[keyMinusId]._isSubplotObj && id) {
+    if(keyMinusId && (keyMinusId in schema) && schema[keyMinusId]._isSubplotObj && id) {
         return true;
     }
 
     return (key in schema);
 }
 
-function getNestedSchema(schema, key) {
+function getNestedSchema(schema: Schema, key: string): Schema {
     if(key in schema) return schema[key];
 
     var parts = splitKey(key);
 
-    return schema[parts.keyMinusId];
+    return parts.keyMinusId ? schema[parts.keyMinusId] : undefined;
 }
 
 var idRegex = Lib.counterRegex('([a-z]+)');
 
-function splitKey(key) {
+function splitKey(key: string): {keyMinusId: string | null, id: string | null} {
     var idMatch = key.match(idRegex);
 
     return {
@@ -368,7 +379,7 @@ function splitKey(key) {
     };
 }
 
-function convertPathToAttributeString(path) {
+function convertPathToAttributeString(path?: (string | number)[] | string): string {
     if(!isArray(path)) return String(path);
 
     var astr = '';

@@ -11,6 +11,13 @@ var configAttributes = require('./plot_config').configAttributes;
 
 var editTypes = require('./edit_types');
 
+import {Layout} from '../types';
+
+// attribute-schema objects (valType/dflt/editType/description/...) - the full
+// recursive schema DSL isn't exhaustively typed, see the scope-boundary note
+// in the plot_api TS conversion project design
+type Schema = Record<string, any>;
+
 var extendDeepAll = Lib.extendDeepAll;
 var isPlainObject = Lib.isPlainObject;
 var isArrayOrTypedArray = Lib.isArrayOrTypedArray;
@@ -49,7 +56,7 @@ exports.UNDERSCORE_ATTRS = UNDERSCORE_ATTRS;
  *  - animations
  *  - config
  */
-exports.get = function() {
+exports.get = function(): Schema {
     var traces = {};
 
     Registry.allTypes.forEach(function(type) {
@@ -122,7 +129,12 @@ exports.get = function() {
  * @return {object} transformOut
  *  copy of transformIn that contains attribute defaults
  */
-exports.crawl = function(attrs, callback, specifiedLevel, attrString) {
+exports.crawl = function(
+    attrs: Schema,
+    callback: (attr: any, attrName: string, attrs: Schema, level: number, fullAttrString: string) => void,
+    specifiedLevel?: number,
+    attrString?: string
+) {
     var level = specifiedLevel || 0;
     attrString = attrString || '';
 
@@ -149,7 +161,7 @@ exports.crawl = function(attrs, callback, specifiedLevel, attrString) {
  *  returns true for a valid value object and
  *  false for tree nodes in the attribute hierarchy
  */
-exports.isValObject = function(obj) {
+exports.isValObject = function(obj: any): boolean {
     return obj && obj.valType !== undefined;
 };
 
@@ -163,13 +175,13 @@ exports.isValObject = function(obj) {
  * @return {array} arrayAttributes
  *  list of array attributes for the given trace
  */
-exports.findArrayAttributes = function(trace) {
-    var arrayAttributes = [];
-    var stack = [];
-    var isArrayStack = [];
-    var baseContainer, baseAttrName;
+exports.findArrayAttributes = function(trace: Record<string, any>): string[] {
+    var arrayAttributes: string[] = [];
+    var stack: string[] = [];
+    var isArrayStack: any[] = [];
+    var baseContainer: Record<string, any>, baseAttrName: string;
 
-    function callback(attr, attrName, attrs, level) {
+    function callback(attr: any, attrName: string, attrs: Schema, level: number) {
         stack = stack.slice(0, level).concat([attrName]);
         isArrayStack = isArrayStack.slice(0, level).concat([attr && attr._isLinkedToArray]);
 
@@ -191,7 +203,7 @@ exports.findArrayAttributes = function(trace) {
         crawlIntoTrace(baseContainer, 0, '');
     }
 
-    function crawlIntoTrace(container, i, astrPartial) {
+    function crawlIntoTrace(container: Record<string, any>, i: number, astrPartial: string) {
         var item = container[stack[i]];
         var newAstrPartial = astrPartial + stack[i];
         if(i === stack.length - 1) {
@@ -238,7 +250,7 @@ exports.findArrayAttributes = function(trace) {
  *  `valType: 'any'` attributes where we might set a part of the attribute.
  *  In that case, stop at the deepest valObject we *do* find.
  */
-exports.getTraceValObject = function(trace, parts) {
+exports.getTraceValObject = function(trace: Record<string, any>, parts: (string | number)[]): Schema | false {
     var head = parts[0];
     var i = 1; // index to start recursing from
     var moduleAttrs, valObject;
@@ -279,13 +291,13 @@ exports.getTraceValObject = function(trace, parts) {
  *  `valType: 'any'` attributes where we might set a part of the attribute.
  *  In that case, stop at the deepest valObject we *do* find.
  */
-exports.getLayoutValObject = function(fullLayout, parts) {
-    var valObject = layoutHeadAttr(fullLayout, parts[0]);
+exports.getLayoutValObject = function(fullLayout: Layout & Record<string, any>, parts: (string | number)[]): Schema | false {
+    var valObject = layoutHeadAttr(fullLayout, parts[0] as string);
 
     return recurseIntoValObject(valObject, parts, 1);
 };
 
-function layoutHeadAttr(fullLayout, head) {
+function layoutHeadAttr(fullLayout: Layout & Record<string, any>, head: string): Schema | false {
     var i, key, _module, attributes;
 
     // look for attributes of the subplot types used on the plot
@@ -343,7 +355,7 @@ function layoutHeadAttr(fullLayout, head) {
     return false;
 }
 
-function recurseIntoValObject(valObject, parts, i) {
+function recurseIntoValObject(valObject: Schema | false, parts: (string | number)[], i: number): Schema | false {
     if(!valObject) return false;
 
     if(valObject._isLinkedToArray) {
@@ -356,7 +368,7 @@ function recurseIntoValObject(valObject, parts, i) {
     // setting an internal part below what's in the schema; just return
     // the innermost schema item we find.
     for(; i < parts.length; i++) {
-        var newValObject = valObject[parts[i]];
+        var newValObject: Schema = valObject[parts[i]];
         if(isPlainObject(newValObject)) valObject = newValObject;
         else break;
 
@@ -367,7 +379,7 @@ function recurseIntoValObject(valObject, parts, i) {
             if(!isIndex(parts[i])) return false;
         } else if(valObject.valType === 'info_array') {
             i++;
-            var index = parts[i];
+            var index = parts[i] as number;
             if(!isIndex(index)) return false;
 
             var items = valObject.items;
@@ -391,17 +403,17 @@ function recurseIntoValObject(valObject, parts, i) {
 
 // note: this is different from Lib.isIndex, this one doesn't accept numeric
 // strings, only actual numbers.
-function isIndex(val) {
+function isIndex(val: any): boolean {
     return val === Math.round(val) && val >= 0;
 }
 
-function getTraceAttributes(type) {
+function getTraceAttributes(type: string): Schema {
     var _module, basePlotModule;
 
     _module = Registry.modules[type]._module,
     basePlotModule = _module.basePlotModule;
 
-    var attributes = {};
+    var attributes: Schema = {};
 
     // make 'type' the first attribute in the object
     attributes.type = null;
@@ -446,7 +458,7 @@ function getTraceAttributes(type) {
     // 'type' gets overwritten by baseAttributes; reset it here
     attributes.type = type;
 
-    var out = {
+    var out: Schema = {
         meta: _module.meta || {},
         categories: _module.categories || {},
         animatable: Boolean(_module.animatable),
@@ -456,7 +468,7 @@ function getTraceAttributes(type) {
 
     // trace-specific layout attributes
     if(_module.layoutAttributes) {
-        var layoutAttributes = {};
+        var layoutAttributes: Schema = {};
 
         extendDeepAll(layoutAttributes, _module.layoutAttributes);
         out.layoutAttributes = formatAttributes(layoutAttributes);
@@ -474,8 +486,8 @@ function getTraceAttributes(type) {
     return out;
 }
 
-function getLayoutAttributes() {
-    var layoutAttributes = {};
+function getLayoutAttributes(): Schema {
+    var layoutAttributes: Schema = {};
     var key, _module;
 
     // global layout attributes
@@ -539,8 +551,8 @@ function getLayoutAttributes() {
     };
 }
 
-function getFramesAttributes() {
-    var attrs = {
+function getFramesAttributes(): Schema {
+    var attrs: Schema = {
         frames: extendDeepAll({}, frameAttributes)
     };
 
@@ -549,7 +561,7 @@ function getFramesAttributes() {
     return attrs.frames;
 }
 
-function formatAttributes(attrs) {
+function formatAttributes(attrs: Schema): Schema {
     mergeValTypeAndRole(attrs);
     formatArrayContainers(attrs);
     stringify(attrs);
@@ -557,8 +569,8 @@ function formatAttributes(attrs) {
     return attrs;
 }
 
-function mergeValTypeAndRole(attrs) {
-    function makeSrcAttr(attrName) {
+function mergeValTypeAndRole(attrs: Schema) {
+    function makeSrcAttr(attrName: string): Schema {
         return {
             valType: 'string',
             description: 'Sets the source reference on Chart Studio Cloud for `' + attrName + '`.',
@@ -566,7 +578,7 @@ function mergeValTypeAndRole(attrs) {
         };
     }
 
-    function callback(attr, attrName, attrs) {
+    function callback(attr: any, attrName: string, attrs: Schema) {
         if(exports.isValObject(attr)) {
             if(attr.arrayOk === true || attr.valType === 'data_array') {
                 // all 'arrayOk' and 'data_array' attrs have a corresponding 'src' attr
@@ -581,8 +593,8 @@ function mergeValTypeAndRole(attrs) {
     exports.crawl(attrs, callback);
 }
 
-function formatArrayContainers(attrs) {
-    function callback(attr, attrName, attrs) {
+function formatArrayContainers(attrs: Schema) {
+    function callback(attr: any, attrName: string, attrs: Schema) {
         if(!attr) return;
 
         var itemName = attr[IS_LINKED_TO_ARRAY];
@@ -601,8 +613,8 @@ function formatArrayContainers(attrs) {
 
 // this can take around 10ms and should only be run from PlotSchema.get(),
 // to ensure JSON.stringify(PlotSchema.get()) gives the intended result.
-function stringify(attrs) {
-    function walk(attr) {
+function stringify(attrs: Schema) {
+    function walk(attr: any) {
         for(var k in attr) {
             if(isPlainObject(attr[k])) {
                 walk(attr[k]);
@@ -623,7 +635,7 @@ function stringify(attrs) {
 }
 
 
-function handleBasePlotModule(layoutAttributes, _module, astr) {
+function handleBasePlotModule(layoutAttributes: Schema, _module: any, astr: string) {
     var np = nestedProperty(layoutAttributes, astr);
     var attrs = extendDeepAll({}, _module.layoutAttributes);
 
@@ -631,7 +643,7 @@ function handleBasePlotModule(layoutAttributes, _module, astr) {
     np.set(attrs);
 }
 
-function insertAttrs(baseAttrs, newAttrs, astr) {
+function insertAttrs(baseAttrs: Schema, newAttrs: Schema, astr: string) {
     var np = nestedProperty(baseAttrs, astr);
 
     np.set(extendDeepAll(np.get() || {}, newAttrs));

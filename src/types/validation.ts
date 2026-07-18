@@ -3,8 +3,8 @@
 export interface ValidationError {
     code: string;
     container: string;
-    trace?: number;
-    path: (string | number)[];
+    trace?: number | null;
+    path: (string | number)[] | string;
     astr?: string;
     msg: string;
 }
